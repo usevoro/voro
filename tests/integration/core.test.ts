@@ -304,6 +304,50 @@ test('cancel leaves discovered rows usable and rescan reconciles removed sources
   }
 });
 
+test('watcher reconciliation waits for a full scan and retains orphan notices while scanning', async () => {
+  const { base, root, data } = await setup();
+  await createFixtures(root);
+  await writeFile(path.join(root, '.missing.glb.notes.json'), '{}');
+  const catalog = new Catalog(data, () => {});
+  let release!: () => void;
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  try {
+    await catalog.open(root);
+    await catalog.scanPromise;
+    assert.deepEqual(catalog.orphans, ['.missing.glb.notes.json']);
+    const index = catalog.index.bind(catalog);
+    let entered!: () => void;
+    const indexing = new Promise<void>((resolve) => {
+      entered = resolve;
+    });
+    catalog.index = async (relativePath) => {
+      entered();
+      await gate;
+      return index(relativePath);
+    };
+    catalog.startScan();
+    await indexing;
+    assert.deepEqual(catalog.orphans, ['.missing.glb.notes.json']);
+    const generation = catalog.generation;
+    catalog.watcher!.emit('all', 'unlinkDir', path.join(root, 'removed-folder'));
+    const reconciliation = catalog.reconcileChanges();
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(catalog.generation, generation, 'watcher must not cancel the active scan');
+    release();
+    await reconciliation;
+    await catalog.scanPromise;
+    assert.equal(catalog.query({}).total, 12);
+    assert.deepEqual(catalog.orphans, ['.missing.glb.notes.json']);
+    assert.equal(catalog.scan.running, false);
+  } finally {
+    release();
+    await catalog.close();
+    await rm(base, { recursive: true, force: true });
+  }
+});
+
 test('preview availability filters completed thumbnails before counting and pagination', async () => {
   const { base, root, data } = await setup();
   await createFixtures(root);
