@@ -2,6 +2,8 @@
 
 A local Electron desktop app for browsing 3D project folders and leaving reviews beside the source files. Implemented from [PRD.md](PRD.md). macOS is the initial validation target.
 
+Maintained by [VORO](https://github.com/usevoro) in [usevoro/voro](https://github.com/usevoro/voro). The planned public website and distribution workflow are described in the [landing-page PRD](docs/LANDING_PAGE_PRD.md).
+
 ## Brand system
 
 The interface uses a game-jam artbook identity: deep plum navigation, a curious sprout mascot, Bricolage Grotesque headings, DM Sans controls, apricot accents, and painted miniature-world key art. Neutral model stages and rounded selection outlines keep review tasks clear. The same system covers first run, the gallery, viewer, reviews, and settings.
