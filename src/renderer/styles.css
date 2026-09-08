@@ -5,6 +5,15 @@
 }
 body {
   margin: 0;
+  cursor: default;
+}
+input,
+textarea {
+  cursor: text;
+}
+input[type='checkbox'],
+select {
+  cursor: default;
 }
 button,
 input,
