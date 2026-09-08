@@ -4,7 +4,7 @@ VORO is a local 3D asset review app for game artists and developers. Small fixes
 
 ## Start here
 
-1. Fork the repository and create a descriptive branch from `main`. While the repository is private, access is invitation-only.
+1. Fork the repository and create a descriptive branch from `main`.
 2. Install Node.js 22.13+ in the 22.x line; `nvm use` reads `.nvmrc`.
 3. Run `npm ci`, then `npm start`.
 4. Generate a disposable project with `npm run fixtures -- /tmp/voro-sample` and open it in the app.
@@ -31,7 +31,7 @@ For visible changes, follow [DESIGN.md](DESIGN.md), test the normal and minimum 
 
 All contributions go through pull requests. Describe the problem, resulting behavior, and relevant validation; link an issue where useful. Maintainers review changes before merging. Contributors do not need repository write access: use forks. Do not push directly to `main`.
 
-Only the owner currently has write access. The intended protection requires a pull request, resolved conversations, linear history, and owner-only merging. GitHub currently blocks enforcing branch protection on this private Free-plan repository. The exact configuration and activation checklist are in [repository administration](docs/REPOSITORY_ADMIN.md). Documentation and CODEOWNERS alone do not enforce these rules.
+Only the owner currently has write access. Active main-branch protection requires a pull request, resolved conversations, linear history, and owner-only merging, including for the owner’s changes. Force pushes and branch deletion are blocked. There are no required CI checks. See [repository administration](docs/REPOSITORY_ADMIN.md) for the enforced policy and the single-maintainer review model.
 
 Update documentation when formats, persistence, security boundaries, or user workflows change. Do not promise platform builds, integrations, or complete glTF support without validation.
 
