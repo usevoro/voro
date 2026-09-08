@@ -92,6 +92,6 @@ See [implementation and validation notes](docs/IMPLEMENTATION.md) for tested for
 
 ## Product website
 
-The branded landing page lives in [`site/`](site/README.md). It builds static HTML/CSS with a small Node script and deploys directly to Vercel: import this repository with **Root Directory `site`** and **Framework Preset `Other`**. See the site README for production SEO settings, public release activation, and platform download verification.
+The landing page is maintained in the public **[usevoro/website](https://github.com/usevoro/website)** repository. Its source has independent history, MIT licensing, contributor documentation, and CI.
 
-Run `npm run site:dev` for the local preview, `npm run site:build` for production output, and `npm run site:test` for the release and metadata checks. The desktop build stays separate.
+For Vercel, import that repository with **Root Directory `.`** and **Framework Preset `Other`**. The original `site/` folder here is retained as the pre-extraction snapshot; make website changes in the standalone repository.

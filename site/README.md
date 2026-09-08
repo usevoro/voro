@@ -1,5 +1,7 @@
 # VORO website
 
+> Website development has moved to **[usevoro/website](https://github.com/usevoro/website)**. This directory is the pre-extraction snapshot. Use the standalone repository and its root-level Vercel configuration for new website work.
+
 A static, responsive product website built from the existing VORO artbook identity. No runtime framework, analytics, third-party fonts, or 3D viewer bundle is shipped. The screenshot switcher progressively enhances ordinary links; the FAQ and platform/download information work without JavaScript.
 
 ## Develop
