@@ -1,3 +1,5 @@
+const { macSigning, windowsSigning } = require('./scripts/signing.cjs');
+
 if (Number(process.versions.node.split('.')[0]) !== 22) {
   throw new Error(
     'Package VORO with Node 22 LTS (nvm use). The current Forge ZIP extractor is incompatible with Node 26.',
@@ -12,15 +14,11 @@ module.exports = {
     // Fail early instead of accepting Forge's silent ZIP-extraction exit on Node 26.
     appBundleId: 'local.asset-reviewer.app',
     appCopyright: 'Copyright © 2026 VORO contributors',
-    osxSign: {
-      identity: '-',
-      identityValidation: false,
-      hardenedRuntime: false,
-      preAutoEntitlements: false,
-      gatekeeperAssess: false,
-      continueOnError: false,
-    },
+    ...macSigning(),
+    ...windowsSigning(),
     ignore: [
+      /^\/\.env($|\.)/,
+      /\.(p8|p12|pfx|key|pem|mobileprovision|provisionprofile)$/i,
       /^\/site($|\/)/,
       /^\/brand($|\/)/,
       /^\/\.impeccable($|\/)/,
