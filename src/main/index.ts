@@ -9,7 +9,7 @@ import {
   session,
   powerMonitor,
 } from 'electron';
-import { realpath, stat } from 'node:fs/promises';
+import { realpath, stat, writeFile, rename, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { createReadStream } from 'node:fs';
 import { Readable } from 'node:stream';
@@ -19,6 +19,7 @@ import { authorizePath } from '../catalog/paths';
 import {
   assetUrl,
   querySchema,
+  reviewExportSchema,
   saveSchema,
   type Asset,
   type Project,
@@ -375,6 +376,32 @@ function installIPC() {
   handle('summary', () => rpc('summary'));
   handle('get', (id) => rpc('get', idSchema.parse(id)));
   handle('review', (id) => rpc('review', idSchema.parse(id)));
+  handle('exportReviews', async () => {
+    const output = reviewExportSchema.parse(await rpc('exportReviews'));
+    const result = await dialog.showSaveDialog(window!, {
+      title: 'Export saved reviews',
+      defaultPath: `${output.project.name}-reviews.json`,
+      filters: [{ name: 'JSON review export', extensions: ['json'] }],
+    });
+    if (result.canceled || !result.filePath) return null;
+    const target = result.filePath;
+    if (
+      path.extname(target).toLowerCase() !== '.json' ||
+      target.toLowerCase().endsWith('.notes.json')
+    )
+      throw new Error('Choose a .json export filename that is not an asset review sidecar.');
+    const temporary = path.join(path.dirname(target), `.voro-export-${randomUUID()}.tmp`);
+    try {
+      await writeFile(temporary, JSON.stringify(output, null, 2) + '\n', {
+        flag: 'wx',
+        mode: 0o600,
+      });
+      await rename(temporary, target);
+    } finally {
+      await rm(temporary, { force: true });
+    }
+    return { path: target, reviews: output.reviews.length, warnings: output.warnings.length };
+  });
   handle('save', (value) => rpc('save', saveSchema.parse(value)));
   handle('rescan', () => rpc('rescan'));
   handle('cancel', () => rpc('cancel'));

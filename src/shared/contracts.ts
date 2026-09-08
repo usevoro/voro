@@ -15,6 +15,33 @@ export const reviewSchema = z.object({
   updatedAt: z.iso.datetime(),
   comments: z.array(commentSchema).max(10000),
 });
+// Public interchange format. Relative paths keep exports portable; review IDs
+// come from persisted sidecars, never from an unsaved placeholder review.
+export const reviewExportSchema = z.object({
+  format: z.literal('voro.review-export'),
+  schemaVersion: z.literal(1),
+  exportedAt: z.iso.datetime(),
+  project: z.object({ name: z.string() }),
+  scope: z.literal('all_saved_reviews_in_catalog'),
+  assetsWithoutSavedReview: z.number().int().min(0),
+  reviews: z.array(
+    z.object({
+      asset: z.object({ path: z.string(), format: z.string(), fingerprint: z.string() }),
+      sidecar: z.string(),
+      revision: z.string(),
+      review: reviewSchema,
+    }),
+  ),
+  warnings: z.array(
+    z.object({
+      kind: z.enum(['unreadable_review', 'orphan_review', 'incomplete_scan']),
+      path: z.string().optional(),
+      message: z.string(),
+    }),
+  ),
+});
+export type ReviewExport = z.infer<typeof reviewExportSchema>;
+export type ExportResult = { path: string; reviews: number; warnings: number };
 export type Comment = z.infer<typeof commentSchema>;
 export type Review = z.infer<typeof reviewSchema>;
 export type ReviewState = {
@@ -70,6 +97,7 @@ export const querySchema = z.object({
   format: z.string().max(12).optional(),
   folder: z.string().max(4096).optional(),
   comments: z.boolean().optional(),
+  previewOnly: z.boolean().optional(),
   sort: z.enum(['name', 'path', 'modified']).default('name'),
   offset: z.number().int().min(0).default(0),
   limit: z.number().int().min(1).max(200).default(100),
@@ -86,6 +114,7 @@ export type SaveInput = z.infer<typeof saveSchema>;
 export type ThumbnailJob = { asset: Asset; token: string; url: string };
 export interface ReviewerAPI {
   openProject(recentId?: string): Promise<Project | null>;
+  exportReviews(): Promise<ExportResult | null>;
   recentProjects(): Promise<Project[]>;
   queryAssets(query: AssetQuery): Promise<QueryResult>;
   summary(): Promise<Summary>;

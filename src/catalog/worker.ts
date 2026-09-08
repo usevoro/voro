@@ -24,6 +24,7 @@ port.on('message', async ({ data: message }) => {
       query: (q) => catalog.query(q),
       summary: () => catalog.summary(),
       get: (id) => catalog.get(id),
+      exportReviews: () => catalog.exportReviews(),
       review: (id) => catalog.review(id),
       save: (value) => catalog.save(value),
       source: (id) => catalog.source(id),

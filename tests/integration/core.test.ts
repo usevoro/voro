@@ -303,3 +303,90 @@ test('cancel leaves discovered rows usable and rescan reconciles removed sources
     await rm(base, { recursive: true, force: true });
   }
 });
+
+test('preview availability filters completed thumbnails before counting and pagination', async () => {
+  const { base, root, data } = await setup();
+  await createFixtures(root);
+  const catalog = new Catalog(data, () => {});
+  try {
+    await catalog.open(root);
+    await catalog.scanPromise;
+    assert.equal(catalog.query({ previewOnly: true }).total, 0);
+    const assets = catalog.query({ folder: 'Furniture' }).assets;
+    for (const asset of assets.slice(0, 2))
+      await catalog.preview(
+        asset.id,
+        asset.fingerprint,
+        'ready',
+        'thumbnail://cache/test.png',
+        null,
+      );
+    await catalog.preview(assets[2].id, assets[2].fingerprint, 'failed', null, 'Invalid geometry');
+    const page = catalog.query({ previewOnly: true, folder: 'Furniture', limit: 1, offset: 1 });
+    assert.equal(page.total, 2);
+    assert.equal(page.assets.length, 1);
+    assert.equal(page.assets[0].id, assets[1].id);
+    assert.equal(catalog.query({ previewOnly: true, format: 'obj' }).total, 0);
+    assert.equal(catalog.query({ previewOnly: false }).total, 12);
+    await catalog.preview(assets[0].id, assets[0].fingerprint, 'queued', null, null);
+    assert.equal(catalog.query({ previewOnly: true }).total, 1);
+  } finally {
+    await catalog.close();
+    await rm(base, { recursive: true, force: true });
+  }
+});
+
+test('review exports preserve saved IDs and Unicode, report broken/orphan notes, and never write sidecars', async () => {
+  const { base, root, data } = await setup();
+  await createFixtures(root);
+  const catalog = new Catalog(data, () => {});
+  try {
+    await catalog.open(root);
+    await catalog.scanPromise;
+    const asset = catalog.query({ search: 'Arc chair' }).assets[0];
+    const unsupported = catalog.query({ format: 'obj' }).assets[0];
+    const saved = await catalog.save({
+      assetId: asset.id,
+      revision: null,
+      status: 'needs_changes',
+      comments: [comment('Soften the edge.\nČuvaj oblik — keep the silhouette.')],
+    });
+    await catalog.save({
+      assetId: unsupported.id,
+      revision: null,
+      status: 'approved',
+      comments: [],
+    });
+    const source = await catalog.source(asset.id);
+    const before = await readFile(sidecarPath(source), 'utf8');
+    const broken = await catalog.source(catalog.query({ search: 'Low table' }).assets[0].id);
+    await writeFile(sidecarPath(broken), '{broken');
+    await writeFile(path.join(root, '.missing.glb.notes.json'), JSON.stringify(saved.review));
+    catalog.startScan();
+    await catalog.scanPromise;
+    const exported = await catalog.exportReviews();
+    const { reviewExportSchema } = await import('../../src/shared/contracts');
+    assert.deepEqual(reviewExportSchema.parse(JSON.parse(JSON.stringify(exported))), exported);
+    assert.equal(exported.reviews.length, 2);
+    const chair = exported.reviews.find((r) => r.asset.path === asset.relativePath)!;
+    assert.equal(chair.review.assetId, saved.review.assetId);
+    assert.equal(chair.review.comments[0].text, saved.review.comments[0].text);
+    assert.equal(chair.revision, saved.revision);
+    assert.equal(chair.sidecar, 'Furniture/.Arc chair.glb.notes.json');
+    assert.equal(exported.assetsWithoutSavedReview, 9);
+    assert.deepEqual(exported.warnings.map((w) => w.kind).sort(), [
+      'orphan_review',
+      'unreadable_review',
+    ]);
+    assert.equal(JSON.stringify(exported).includes(root), false);
+    assert.equal(await readFile(sidecarPath(source), 'utf8'), before);
+    assert.equal(await readFile(sidecarPath(broken), 'utf8'), '{broken');
+    assert.equal(
+      (await catalog.exportReviews()).reviews[0].review.assetId,
+      exported.reviews[0].review.assetId,
+    );
+  } finally {
+    await catalog.close();
+    await rm(base, { recursive: true, force: true });
+  }
+});

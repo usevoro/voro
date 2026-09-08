@@ -21,7 +21,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "brand:build": "node scripts/brand.mjs",
-    "brand:capture": "npm run build && tsx scripts/capture-brand.ts"
+    "brand:capture": "npm run build && tsx scripts/capture-brand.ts",
+    "schemas:build": "tsx scripts/review-schemas.ts"
   },
   "engines": {
     "node": ">=22.13.0"

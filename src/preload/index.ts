@@ -16,6 +16,7 @@ if (location.pathname.endsWith('/thumbnail.html')) {
 } else {
   const api: ReviewerAPI = {
     openProject: (id) => invoke('open', id),
+    exportReviews: () => invoke('exportReviews'),
     recentProjects: () => invoke('recent'),
     queryAssets: (q) => invoke('query', q),
     summary: () => invoke('summary'),

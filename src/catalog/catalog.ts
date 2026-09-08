@@ -11,6 +11,7 @@ import {
   saveSchema,
   type Asset,
   type AssetQuery,
+  type ReviewExport,
   type Project,
   type ScanState,
   type Summary,
@@ -328,6 +329,10 @@ export class Catalog {
       values.push(q.folder, `${q.folder.replace(/[\\%_]/g, '\\$&')}/%`);
     }
     if (q.comments) clauses.push('commentCount > 0');
+    if (q.previewOnly)
+      clauses.push(
+        "json_extract(data, '$.preview') = 'ready' AND json_extract(data, '$.thumbnail') IS NOT NULL",
+      );
     const where = clauses.join(' AND ');
     const sort = {
       name: 'name COLLATE NOCASE',
@@ -418,6 +423,64 @@ export class Catalog {
   }
   async review(id: string) {
     return readReview(await this.source(id));
+  }
+  async exportReviews(): Promise<ReviewExport> {
+    const project = this.project;
+    if (!project) throw new Error('Open a project before exporting reviews.');
+    if (this.scan.running) throw new Error('Wait for the scan to finish before exporting.');
+    const rows = this.db
+      .prepare('SELECT data FROM assets WHERE projectId=? ORDER BY relativePath')
+      .all(project.id) as { data: string }[];
+    const output: ReviewExport = {
+      format: 'voro.review-export',
+      schemaVersion: 1,
+      exportedAt: new Date().toISOString(),
+      project: { name: project.name },
+      scope: 'all_saved_reviews_in_catalog',
+      assetsWithoutSavedReview: 0,
+      reviews: [],
+      warnings: [],
+    };
+    if (this.scan.canceled || this.scan.errors.length)
+      output.warnings.push({
+        kind: 'incomplete_scan',
+        message:
+          'The last scan was canceled or encountered errors. This export covers only cataloged assets.',
+      });
+    for (const orphan of this.orphans)
+      output.warnings.push({
+        kind: 'orphan_review',
+        path: orphan,
+        message: 'No matching asset was found. Reattach this sidecar before exporting its review.',
+      });
+    for (const row of rows) {
+      const asset: Asset = JSON.parse(row.data);
+      const sidecar = posixPath(
+        path.join(path.dirname(asset.relativePath), `.${asset.name}.notes.json`),
+      );
+      try {
+        const source = await authorizePath(project.root, asset.relativePath);
+        const state = await readReview(source);
+        if (state.error) throw new Error(state.error);
+        if (state.revision === null) {
+          output.assetsWithoutSavedReview++;
+          continue;
+        }
+        output.reviews.push({
+          asset: { path: asset.relativePath, format: asset.format, fingerprint: asset.fingerprint },
+          sidecar,
+          revision: state.revision,
+          review: state.review,
+        });
+      } catch (error) {
+        output.warnings.push({
+          kind: 'unreadable_review',
+          path: sidecar,
+          message: (error as Error).message,
+        });
+      }
+    }
+    return output;
   }
   async save(input: unknown) {
     const parsed = saveSchema.parse(input);
