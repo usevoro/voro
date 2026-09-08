@@ -11,6 +11,15 @@ module.exports = {
     // No native addons: all runtime JS is bundled and SQLite ships with Electron.
     // Fail early instead of accepting Forge's silent ZIP-extraction exit on Node 26.
     appBundleId: 'local.asset-reviewer.app',
+    appCopyright: 'Copyright © 2026 VORO contributors',
+    osxSign: {
+      identity: '-',
+      identityValidation: false,
+      hardenedRuntime: false,
+      preAutoEntitlements: false,
+      gatekeeperAssess: false,
+      continueOnError: false,
+    },
     ignore: [
       /^\/site($|\/)/,
       /^\/brand($|\/)/,
@@ -26,5 +35,5 @@ module.exports = {
       /^\/\.github($|\/)/,
     ],
   },
-  makers: [{ name: '@electron-forge/maker-zip', platforms: ['darwin'] }],
+  makers: [{ name: '@electron-forge/maker-zip', platforms: ['darwin', 'win32', 'linux'] }],
 };

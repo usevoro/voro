@@ -91,6 +91,26 @@ const icon = svg(
   'VORO application icon',
 );
 await writeFile('brand/icons/voro.svg', icon);
+// Windows ICO container with PNG payloads, using the same authored icon geometry.
+const iconSizes = [16, 32, 48, 256];
+const icoHeader = Buffer.alloc(6 + iconSizes.length * 16);
+icoHeader.writeUInt16LE(1, 2);
+icoHeader.writeUInt16LE(iconSizes.length, 4);
+const icoImages = [];
+let icoOffset = icoHeader.length;
+for (const [index, size] of iconSizes.entries()) {
+  const png = new Resvg(icon, { fitTo: { mode: 'width', value: size } }).render().asPng();
+  const offset = 6 + index * 16;
+  icoHeader[offset] = icoHeader[offset + 1] = size === 256 ? 0 : size;
+  icoHeader.writeUInt16LE(1, offset + 4);
+  icoHeader.writeUInt16LE(32, offset + 6);
+  icoHeader.writeUInt32LE(png.length, offset + 8);
+  icoHeader.writeUInt32LE(icoOffset, offset + 12);
+  icoImages.push(png);
+  icoOffset += png.length;
+}
+await writeFile('brand/icons/voro.ico', Buffer.concat([icoHeader, ...icoImages]));
+
 await mkdir('brand/icons/voro.iconset', { recursive: true });
 for (const size of [16, 32, 128, 256, 512]) {
   for (const scale of [1, 2]) {
