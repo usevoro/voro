@@ -28,7 +28,9 @@
     "site:test": "npm --prefix site test",
     "site:refresh": "npm --prefix site run refresh",
     "site:capture": "npm run build && tsx scripts/capture-site.ts",
-    "release:build": "npm run build && node scripts/release.mjs"
+    "release:build": "npm run build && node scripts/release.mjs",
+    "release:mac": "npm run build && node --env-file-if-exists=.env.signing scripts/release.mjs --signed mac-arm64 mac-x64",
+    "test:release": "node --test tests/release/*.test.cjs"
   },
   "engines": {
     "node": ">=22.13.0"

@@ -13,3 +13,12 @@ test-results/
 .impeccable/*
 !.impeccable/design.json
 !.impeccable/direction.md
+
+# Signing credentials belong in the OS key store, never in source control.
+*.p8
+*.p12
+*.pfx
+*.key
+*.pem
+*.mobileprovision
+*.provisionprofile
