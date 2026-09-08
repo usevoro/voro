@@ -89,3 +89,9 @@ npm run benchmark
 This creates and removes a temporary 10,000-asset / 50,000-file fixture and records catalog measurements in `docs/benchmark.json`. It is not a representative rendering or scrolling benchmark.
 
 See [implementation and validation notes](docs/IMPLEMENTATION.md) for tested formats, limits, and remaining release gates.
+
+## Product website
+
+The branded landing page lives in [`site/`](site/README.md). It builds static HTML/CSS with a small Node script and deploys directly to Vercel: import this repository with **Root Directory `site`** and **Framework Preset `Other`**. See the site README for production SEO settings, public release activation, and platform download verification.
+
+Run `npm run site:dev` for the local preview, `npm run site:build` for production output, and `npm run site:test` for the release and metadata checks. The desktop build stays separate.
