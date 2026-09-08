@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>VORO — Brand Reference</title>
+    <link rel="stylesheet" href="tokens.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--voro-ground);
+        color: var(--voro-ink);
+        font-family: var(--voro-font-body);
+        font-size: 15px;
+        line-height: 1.65;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--voro-font-display);
+        font-weight: 800;
+        line-height: 1.05;
+      }
+      h1 {
+        font-size: 76px;
+        letter-spacing: -1px;
+      }
+      h2 {
+        font-size: 42px;
+        margin-bottom: 24px;
+      }
+      h3 {
+        font-size: 30px;
+        margin-bottom: 16px;
+      }
+      a {
+        color: var(--voro-plum);
+        text-underline-offset: 4px;
+      }
+      a:focus-visible {
+        outline: 2px solid var(--voro-plum);
+        outline-offset: 5px;
+      }
+      .top {
+        padding: 30px 54px;
+        background: white;
+        border-bottom: 1px solid var(--voro-line);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .top img {
+        width: 270px;
+      }
+      .top nav {
+        display: flex;
+        gap: 24px;
+        font-size: 13px;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        min-height: 550px;
+      }
+      .hero-copy {
+        padding: 76px 60px;
+      }
+      .hero h1 span {
+        display: block;
+        color: var(--voro-plum);
+      }
+      .hero p {
+        margin-top: 26px;
+        max-width: 440px;
+        color: var(--voro-muted);
+        font-size: 17px;
+      }
+      .hero-mark {
+        padding: 0;
+        background: var(--voro-plum);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .hero-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .hero-mark small {
+        background: var(--voro-paper);
+        padding: 8px 12px;
+        border-radius: 10px;
+        position: absolute;
+        bottom: 34px;
+        left: 40px;
+        color: var(--voro-ink);
+        font-size: 13px;
+      }
+      .strap {
+        padding: 24px 60px;
+        background: var(--voro-ink);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+      }
+      main {
+        max-width: 1320px;
+        margin: auto;
+      }
+      section {
+        padding: 70px 60px;
+        border-bottom: 1px solid var(--voro-line);
+      }
+      .intro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+      .intro p {
+        max-width: 570px;
+        color: var(--voro-muted);
+      }
+      .logos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .logo {
+        height: 220px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+      }
+      .logo.blue {
+        background: var(--voro-plum);
+      }
+      .logo img {
+        max-width: 85%;
+        max-height: 120px;
+      }
+      .logo.mark img {
+        height: 110px;
+      }
+      .caption {
+        font-size: 12px;
+        color: var(--voro-muted);
+        margin: 12px 0 22px;
+      }
+      .palette {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+      .swatch {
+        height: 136px;
+        border: 1px solid #332a3c16;
+      }
+      .color-name {
+        font-weight: 600;
+        margin-top: 12px;
+        font-size: 13px;
+      }
+      .hex {
+        font-size: 12px;
+        color: var(--voro-muted);
+      }
+      .note {
+        color: var(--voro-muted);
+        font-size: 13px;
+        margin-top: 26px;
+        max-width: 740px;
+      }
+      .type {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+      .display-sample {
+        font-family: var(--voro-font-display);
+        font-weight: 600;
+        font-size: 58px;
+        line-height: 1.02;
+        margin: 28px 0;
+      }
+      .body-sample {
+        font-size: 23px;
+        line-height: 1.55;
+        margin: 28px 0;
+      }
+      .spec {
+        border-top: 1px solid var(--voro-line);
+        padding-top: 18px;
+        font-size: 13px;
+        color: var(--voro-muted);
+      }
+      .components {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      }
+      .specimen {
+        background: white;
+        padding: 30px;
+        min-height: 230px;
+      }
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: 22px;
+        border-radius: 10px;
+        background: var(--voro-plum);
+        color: white;
+        padding: 11px 17px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .states {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+      .state {
+        border-radius: 10px;
+        padding: 5px 9px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .state.approved {
+        background: var(--voro-success-bg);
+        color: var(--voro-success);
+      }
+      .state.changes {
+        background: var(--voro-warning-bg);
+        color: var(--voro-warning);
+      }
+      .state.pending {
+        background: var(--voro-ground);
+        color: var(--voro-muted);
+      }
+      .frame {
+        border-radius: 12px;
+        outline: 2px solid var(--voro-plum);
+        position: relative;
+        padding: 28px;
+        border: 1px solid var(--voro-line);
+        margin-bottom: 18px;
+      }
+      .frame strong {
+        font-size: 16px;
+      }
+      .frame p {
+        font-size: 13px;
+        color: var(--voro-muted);
+        margin-top: 8px;
+      }
+      .rules {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+      }
+      .rules ul {
+        padding-left: 18px;
+        margin-top: 16px;
+      }
+      .rules li {
+        margin: 8px 0;
+      }
+      .cover {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+      .downloads {
+        display: flex;
+        gap: 26px;
+        margin-top: 24px;
+        flex-wrap: wrap;
+        font-size: 14px;
+      }
+      footer {
+        padding: 32px 60px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 12px;
+        color: var(--voro-muted);
+      }
+      @media (max-width: 850px) {
+        .top,
+        footer {
+          padding: 24px;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        .top nav {
+          gap: 14px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-copy {
+          padding: 44px 24px;
+        }
+        h1 {
+          font-size: 58px;
+        }
+        .hero-mark {
+          min-height: 280px;
+        }
+        .hero-mark img {
+          width: 230px;
+        }
+        .strap {
+          padding: 20px 24px;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        section {
+          padding: 45px 24px;
+        }
+        .intro,
+        .type,
+        .components,
+        .rules {
+          grid-template-columns: 1fr;
+          gap: 28px;
+        }
+        .palette {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        .logo {
+          height: 160px;
+        }
+        .display-sample {
+          font-size: 66px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <img src="logos/wordmark-dark.svg" alt="VORO" />
+      <nav aria-label="Brand guide">
+        <a href="#identity">Identity</a><a href="#color">Color</a><a href="#type">Type</a
+        ><a href="#use">In use</a>
+      </nav>
+    </header>
+    <div class="hero">
+      <div class="hero-copy">
+        <h1>Small details.<span>Bigger worlds.</span></h1>
+        <p>A home for unfinished worlds, odd little props, and the people bringing them to life.</p>
+      </div>
+      <div class="hero-mark">
+        <img src="art/little-world.png" alt="A hand-painted miniature game world" /><small
+          >Make room for a little weird.</small
+        >
+      </div>
+    </div>
+    <div class="strap">
+      <span>VORO / Brand reference</span><span>A little room for your next world</span>
+    </div>
+    <main>
+      <section id="identity">
+        <div class="intro">
+          <h2>A mascot with<br />a point of view.</h2>
+          <p>
+            VORO keeps its abstract name and finds a little soul. Two leafy ears, a curious face,
+            and a soft, lopsided silhouette make our sprout mascot feel like a character from a
+            world still being made. The lowercase wordmark keeps it friendly.
+          </p>
+        </div>
+        <div class="logos">
+          <div>
+            <div class="logo">
+              <img src="logos/wordmark-dark.svg" alt="Horizontal dark wordmark" />
+            </div>
+            <p class="caption">Primary lockup / Light surfaces</p>
+          </div>
+          <div>
+            <div class="logo blue">
+              <img src="logos/wordmark-light.svg" alt="Horizontal white wordmark" />
+            </div>
+            <p class="caption">Reversed lockup / Plum surfaces</p>
+          </div>
+          <div>
+            <div class="logo">
+              <img src="logos/wordmark-compact-dark.svg" alt="Compact wordmark" />
+            </div>
+            <p class="caption">Compact lockup / Application navigation</p>
+          </div>
+          <div>
+            <div class="logo mark">
+              <img src="icons/voro-1024.png" alt="Plum mascot application icon" />
+            </div>
+            <p class="caption">Native application icon / macOS</p>
+          </div>
+        </div>
+        <p class="note">
+          Give the logo clear space equal to the width of one mascot eye. Minimum widths: horizontal
+          260px, compact 180px, mark 24px. The application icon is separately rendered for small
+          system sizes. Keep proportions, colors, and letterforms intact.
+        </p>
+      </section>
+      <section id="color">
+        <h2>A little color.<br />A lot of possibility.</h2>
+        <div class="palette">
+          <div>
+            <div class="swatch" style="background: #755087"></div>
+            <p class="color-name">Plum</p>
+            <p class="hex">#755087 · Action / focus</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #332a3c"></div>
+            <p class="color-name">Ink</p>
+            <p class="hex">#332A3C · Text / navigation</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #f5f1ee"></div>
+            <p class="color-name">Canvas</p>
+            <p class="hex">#F5F1EE · Workspace</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #fffdfa"></div>
+            <p class="color-name">Paper</p>
+            <p class="hex">#FFFDFA · Reading / controls</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #e9e7e6"></div>
+            <p class="color-name">Stage</p>
+            <p class="hex">#E9E7E6 · Object previews</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #ef9a79"></div>
+            <p class="color-name">Apricot</p>
+            <p class="hex">#EF9A79 · Brand accent</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #f2d58d"></div>
+            <p class="color-name">Butter</p>
+            <p class="hex">#F2D58D · Mascot</p>
+          </div>
+          <div>
+            <div class="swatch" style="background: #dcd0e9"></div>
+            <p class="color-name">Lilac</p>
+            <p class="hex">#DCD0E9 · Artwork / accents</p>
+          </div>
+        </div>
+        <p class="note">
+          Use ink or muted #6b626c for readable text on light surfaces. White is readable on plum.
+          Orange accents are decorative; for change-required text, use #85452d on #FBEAE1. Approval
+          uses #346348 on #E9F2E8. Errors use #A03949 on #FBE9EC. Never rely on color alone.
+        </p>
+      </section>
+      <section id="type">
+        <div class="type">
+          <div>
+            <h3>Bricolage Grotesque</h3>
+            <p class="display-sample">One more prop.<br />A whole new world.</p>
+            <p class="spec">
+              Bold 700–800 / Display, short headings, wordmark<br />60px welcome · 30px workspace ·
+              23px inspector
+            </p>
+          </div>
+          <div>
+            <h3>DM Sans</h3>
+            <p class="body-sample">
+              Round the front edge of the seat. Keep the profile light, and check how the material
+              catches the studio light.
+            </p>
+            <p class="spec">
+              Variable 400–700 / Controls, paths, notes, metadata<br />13px controls · 12–14px
+              reading · 11px secondary metadata
+            </p>
+          </div>
+        </div>
+        <p class="note">
+          Fonts are bundled locally. The interface works without network access. Keep expressive
+          typography in short headings; let task content stay clear and quiet.
+        </p>
+      </section>
+      <section id="use">
+        <h2>Serious about play.</h2>
+        <div class="components">
+          <div class="specimen">
+            <span class="button"
+              >Open a project folder
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 19 19 5M5 5h14v14" stroke="currentColor" stroke-width="2" /></svg
+            ></span>
+            <div class="states">
+              <span class="state pending">○ Unreviewed</span
+              ><span class="state changes">! Needs changes</span
+              ><span class="state approved">✓ Approved</span>
+            </div>
+            <p class="note">
+              Actionable language. Labeled review states. A visible focus ring for every control.
+            </p>
+          </div>
+          <div class="specimen">
+            <div class="frame">
+              <strong>Arc chair.glb</strong>
+              <p>Furniture / Seating</p>
+            </div>
+            <p class="note">
+              The rounded outline belongs to selection. A soft contact sheet gives the objects room;
+              borders organize controls and notes.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="rules">
+          <div>
+            <h2>Say what helps.</h2>
+            <p>
+              Direct, observant, constructive. A reviewer is a collaborator, and the interface
+              should sound like one.
+            </p>
+            <ul>
+              <li>“Saved beside asset” — state where the work lives.</li>
+              <li>“Needs changes” — leave room for the next pass.</li>
+              <li>“Open a project folder” — name the exact action.</li>
+              <li>Explain errors and give the next useful step.</li>
+            </ul>
+          </div>
+          <div>
+            <h2>Keep the rhythm.</h2>
+            <ul>
+              <li>Use a 4px spacing base: 4, 8, 12, 16, 24, 32.</li>
+              <li>Use 10px corners on controls; 18px for overlay panels.</li>
+              <li>Keep the deep plum rail calm while the artwork takes the lead.</li>
+              <li>Use brief, 160ms feedback; respect reduced motion.</li>
+              <li>
+                No decorative shadows, gradients, stretched marks, or orange body text on white.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Ready to carry the identity.</h2>
+        <img
+          class="cover"
+          src="templates/presentation-cover.svg"
+          alt="VORO presentation cover, plum left rail and Small details. Bigger worlds. headline"
+        />
+        <div class="downloads">
+          <a href="templates/presentation-cover.svg" download>Cover / SVG</a
+          ><a href="templates/presentation-cover.png" download>Cover / PNG</a
+          ><a href="icons/voro-1024.png" download>App icon / PNG</a
+          ><a href="icons/voro.icns" download>App icon / ICNS</a
+          ><a href="tokens.json" download>Design tokens / JSON</a
+          ><a href="README.md">Usage and licenses</a>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <span>VORO · Big worlds start with little things.</span><span>Brand system v2 / 2026</span>
+    </footer>
+  </body>
+</html>

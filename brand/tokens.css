@@ -1,0 +1,69 @@
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/dm-sans-latin-wght-normal.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('./fonts/dm-sans-latin-ext-wght-normal.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range:
+    U+0100-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('./fonts/bricolage-grotesque-latin-wght-normal.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('./fonts/bricolage-grotesque-latin-ext-wght-normal.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range:
+    U+0100-02FF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0,
+    U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+:root {
+  --voro-rail: #332a3c;
+  --voro-lilac: #dcd0e9;
+  --voro-butter: #f2d58d;
+  --voro-ink: #332a3c;
+  --voro-muted: #6b626c;
+  --voro-paper: #fffdfa;
+  --voro-ground: #f5f1ee;
+  --voro-stage: #e9e7e6;
+  --voro-line: #d8cfd6;
+  --voro-plum: #755087;
+  --voro-plum-hover: #604070;
+  --voro-plum-soft: #eee5f3;
+  --voro-rail-muted: #d9cedf;
+  --voro-apricot: #ef9a79;
+  --voro-success: #346348;
+  --voro-success-bg: #e9f2e8;
+  --voro-warning: #85452d;
+  --voro-warning-bg: #fbeae1;
+  --voro-error: #a03949;
+  --voro-error-bg: #fbe9ec;
+  --voro-font-body: 'DM Sans', sans-serif;
+  --voro-font-display: 'Bricolage Grotesque', sans-serif;
+  --voro-radius: 10px;
+  --voro-radius-panel: 18px;
+  --voro-space-1: 4px;
+  --voro-space-2: 8px;
+  --voro-space-3: 12px;
+  --voro-space-4: 16px;
+  --voro-space-6: 24px;
+  --voro-space-8: 32px;
+  --voro-motion-fast: 160ms;
+  --voro-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --voro-overlay-shadow: 0 16px 64px #332a3c2b;
+}

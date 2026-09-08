@@ -1,0 +1,521 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-08T18:45:42.347226+00:00",
+  "title": "Design System: VORO",
+  "extensions": {
+    "colorMeta": {
+      "rail": {
+        "displayName": "Rail",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.0341 307.20)",
+          "oklch(26.4% 0.0341 307.20)",
+          "oklch(37.9% 0.0341 307.20)",
+          "oklch(49.3% 0.0341 307.20)",
+          "oklch(60.7% 0.0341 307.20)",
+          "oklch(72.1% 0.0341 307.20)",
+          "oklch(83.6% 0.0341 307.20)",
+          "oklch(95% 0.0341 307.20)"
+        ]
+      },
+      "lilac": {
+        "displayName": "Lilac",
+        "role": "secondary",
+        "tonalRamp": [
+          "oklch(15% 0.0363 307.17)",
+          "oklch(26.4% 0.0363 307.17)",
+          "oklch(37.9% 0.0363 307.17)",
+          "oklch(49.3% 0.0363 307.17)",
+          "oklch(60.7% 0.0363 307.17)",
+          "oklch(72.1% 0.0363 307.17)",
+          "oklch(83.6% 0.0363 307.17)",
+          "oklch(95% 0.0363 307.17)"
+        ]
+      },
+      "butter": {
+        "displayName": "Butter",
+        "role": "secondary",
+        "tonalRamp": [
+          "oklch(15% 0.0962 88.42)",
+          "oklch(26.4% 0.0962 88.42)",
+          "oklch(37.9% 0.0962 88.42)",
+          "oklch(49.3% 0.0962 88.42)",
+          "oklch(60.7% 0.0962 88.42)",
+          "oklch(72.1% 0.0962 88.42)",
+          "oklch(83.6% 0.0962 88.42)",
+          "oklch(95% 0.0962 88.42)"
+        ]
+      },
+      "ink": {
+        "displayName": "Ink",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0341 307.20)",
+          "oklch(26.4% 0.0341 307.20)",
+          "oklch(37.9% 0.0341 307.20)",
+          "oklch(49.3% 0.0341 307.20)",
+          "oklch(60.7% 0.0341 307.20)",
+          "oklch(72.1% 0.0341 307.20)",
+          "oklch(83.6% 0.0341 307.20)",
+          "oklch(95% 0.0341 307.20)"
+        ]
+      },
+      "muted": {
+        "displayName": "Muted",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0191 322.78)",
+          "oklch(26.4% 0.0191 322.78)",
+          "oklch(37.9% 0.0191 322.78)",
+          "oklch(49.3% 0.0191 322.78)",
+          "oklch(60.7% 0.0191 322.78)",
+          "oklch(72.1% 0.0191 322.78)",
+          "oklch(83.6% 0.0191 322.78)",
+          "oklch(95% 0.0191 322.78)"
+        ]
+      },
+      "paper": {
+        "displayName": "Paper",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0045 78.30)",
+          "oklch(26.4% 0.0045 78.30)",
+          "oklch(37.9% 0.0045 78.30)",
+          "oklch(49.3% 0.0045 78.30)",
+          "oklch(60.7% 0.0045 78.30)",
+          "oklch(72.1% 0.0045 78.30)",
+          "oklch(83.6% 0.0045 78.30)",
+          "oklch(95% 0.0045 78.30)"
+        ]
+      },
+      "ground": {
+        "displayName": "Ground",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0059 59.65)",
+          "oklch(26.4% 0.0059 59.65)",
+          "oklch(37.9% 0.0059 59.65)",
+          "oklch(49.3% 0.0059 59.65)",
+          "oklch(60.7% 0.0059 59.65)",
+          "oklch(72.1% 0.0059 59.65)",
+          "oklch(83.6% 0.0059 59.65)",
+          "oklch(95% 0.0059 59.65)"
+        ]
+      },
+      "stage": {
+        "displayName": "Stage",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0026 48.72)",
+          "oklch(26.4% 0.0026 48.72)",
+          "oklch(37.9% 0.0026 48.72)",
+          "oklch(49.3% 0.0026 48.72)",
+          "oklch(60.7% 0.0026 48.72)",
+          "oklch(72.1% 0.0026 48.72)",
+          "oklch(83.6% 0.0026 48.72)",
+          "oklch(95% 0.0026 48.72)"
+        ]
+      },
+      "line": {
+        "displayName": "Line",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0137 333.07)",
+          "oklch(26.4% 0.0137 333.07)",
+          "oklch(37.9% 0.0137 333.07)",
+          "oklch(49.3% 0.0137 333.07)",
+          "oklch(60.7% 0.0137 333.07)",
+          "oklch(72.1% 0.0137 333.07)",
+          "oklch(83.6% 0.0137 333.07)",
+          "oklch(95% 0.0137 333.07)"
+        ]
+      },
+      "plum": {
+        "displayName": "Plum",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.0951 314.09)",
+          "oklch(26.4% 0.0951 314.09)",
+          "oklch(37.9% 0.0951 314.09)",
+          "oklch(49.3% 0.0951 314.09)",
+          "oklch(60.7% 0.0951 314.09)",
+          "oklch(72.1% 0.0951 314.09)",
+          "oklch(83.6% 0.0951 314.09)",
+          "oklch(95% 0.0951 314.09)"
+        ]
+      },
+      "plum-hover": {
+        "displayName": "Plum Hover",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.0856 313.78)",
+          "oklch(26.4% 0.0856 313.78)",
+          "oklch(37.9% 0.0856 313.78)",
+          "oklch(49.3% 0.0856 313.78)",
+          "oklch(60.7% 0.0856 313.78)",
+          "oklch(72.1% 0.0856 313.78)",
+          "oklch(83.6% 0.0856 313.78)",
+          "oklch(95% 0.0856 313.78)"
+        ]
+      },
+      "plum-soft": {
+        "displayName": "Plum Soft",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.0210 313.83)",
+          "oklch(26.4% 0.0210 313.83)",
+          "oklch(37.9% 0.0210 313.83)",
+          "oklch(49.3% 0.0210 313.83)",
+          "oklch(60.7% 0.0210 313.83)",
+          "oklch(72.1% 0.0210 313.83)",
+          "oklch(83.6% 0.0210 313.83)",
+          "oklch(95% 0.0210 313.83)"
+        ]
+      },
+      "rail-muted": {
+        "displayName": "Rail Muted",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0260 313.94)",
+          "oklch(26.4% 0.0260 313.94)",
+          "oklch(37.9% 0.0260 313.94)",
+          "oklch(49.3% 0.0260 313.94)",
+          "oklch(60.7% 0.0260 313.94)",
+          "oklch(72.1% 0.0260 313.94)",
+          "oklch(83.6% 0.0260 313.94)",
+          "oklch(95% 0.0260 313.94)"
+        ]
+      },
+      "apricot": {
+        "displayName": "Apricot",
+        "role": "primary",
+        "tonalRamp": [
+          "oklch(15% 0.1123 41.93)",
+          "oklch(26.4% 0.1123 41.93)",
+          "oklch(37.9% 0.1123 41.93)",
+          "oklch(49.3% 0.1123 41.93)",
+          "oklch(60.7% 0.1123 41.93)",
+          "oklch(72.1% 0.1123 41.93)",
+          "oklch(83.6% 0.1123 41.93)",
+          "oklch(95% 0.1123 41.93)"
+        ]
+      },
+      "success": {
+        "displayName": "Success",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0685 157.08)",
+          "oklch(26.4% 0.0685 157.08)",
+          "oklch(37.9% 0.0685 157.08)",
+          "oklch(49.3% 0.0685 157.08)",
+          "oklch(60.7% 0.0685 157.08)",
+          "oklch(72.1% 0.0685 157.08)",
+          "oklch(83.6% 0.0685 157.08)",
+          "oklch(95% 0.0685 157.08)"
+        ],
+        "purpose": "Semantic review or error feedback."
+      },
+      "success-bg": {
+        "displayName": "Success Bg",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0163 142.56)",
+          "oklch(26.4% 0.0163 142.56)",
+          "oklch(37.9% 0.0163 142.56)",
+          "oklch(49.3% 0.0163 142.56)",
+          "oklch(60.7% 0.0163 142.56)",
+          "oklch(72.1% 0.0163 142.56)",
+          "oklch(83.6% 0.0163 142.56)",
+          "oklch(95% 0.0163 142.56)"
+        ],
+        "purpose": "Semantic review or error feedback."
+      },
+      "warning": {
+        "displayName": "Warning",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0949 40.87)",
+          "oklch(26.4% 0.0949 40.87)",
+          "oklch(37.9% 0.0949 40.87)",
+          "oklch(49.3% 0.0949 40.87)",
+          "oklch(60.7% 0.0949 40.87)",
+          "oklch(72.1% 0.0949 40.87)",
+          "oklch(83.6% 0.0949 40.87)",
+          "oklch(95% 0.0949 40.87)"
+        ],
+        "purpose": "Semantic review or error feedback."
+      },
+      "warning-bg": {
+        "displayName": "Warning Bg",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0222 49.93)",
+          "oklch(26.4% 0.0222 49.93)",
+          "oklch(37.9% 0.0222 49.93)",
+          "oklch(49.3% 0.0222 49.93)",
+          "oklch(60.7% 0.0222 49.93)",
+          "oklch(72.1% 0.0222 49.93)",
+          "oklch(83.6% 0.0222 49.93)",
+          "oklch(95% 0.0222 49.93)"
+        ],
+        "purpose": "Semantic review or error feedback."
+      },
+      "error": {
+        "displayName": "Error",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.1365 14.39)",
+          "oklch(26.4% 0.1365 14.39)",
+          "oklch(37.9% 0.1365 14.39)",
+          "oklch(49.3% 0.1365 14.39)",
+          "oklch(60.7% 0.1365 14.39)",
+          "oklch(72.1% 0.1365 14.39)",
+          "oklch(83.6% 0.1365 14.39)",
+          "oklch(95% 0.1365 14.39)"
+        ],
+        "purpose": "Semantic review or error feedback."
+      },
+      "error-bg": {
+        "displayName": "Error Bg",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0200 5.99)",
+          "oklch(26.4% 0.0200 5.99)",
+          "oklch(37.9% 0.0200 5.99)",
+          "oklch(49.3% 0.0200 5.99)",
+          "oklch(60.7% 0.0200 5.99)",
+          "oklch(72.1% 0.0200 5.99)",
+          "oklch(83.6% 0.0200 5.99)",
+          "oklch(95% 0.0200 5.99)"
+        ],
+        "purpose": "Semantic review or error feedback."
+      },
+      "white": {
+        "displayName": "White",
+        "role": "neutral",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.88)",
+          "oklch(26.4% 0.0000 89.88)",
+          "oklch(37.9% 0.0000 89.88)",
+          "oklch(49.3% 0.0000 89.88)",
+          "oklch(60.7% 0.0000 89.88)",
+          "oklch(72.1% 0.0000 89.88)",
+          "oklch(83.6% 0.0000 89.88)",
+          "oklch(95% 0.0000 89.88)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Welcome heading."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Collection heading."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Inspector heading."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base task UI."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Review field label."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Lowercase brand name."
+      }
+    },
+    "shadows": [
+      {
+        "name": "overlay",
+        "value": "0 16px 64px #332a3c2b",
+        "purpose": "Dialog above a translucent plum backdrop."
+      }
+    ],
+    "motion": [
+      {
+        "name": "fast",
+        "value": "160ms",
+        "purpose": "Control colors and selection opacity."
+      },
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Inspector entry and thumbnail hover."
+      },
+      {
+        "name": "inspector-in",
+        "value": "180ms",
+        "purpose": "8px horizontal entry."
+      },
+      {
+        "name": "thumbnail-hover",
+        "value": "240ms",
+        "purpose": "Image scale to 1.025."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-width",
+        "value": "1200px",
+        "query": "(max-width: 1200px)"
+      },
+      {
+        "name": "compact-height",
+        "value": "780px",
+        "query": "(max-height: 780px)"
+      }
+    ],
+    "cssTokenMap": {
+      "colors.rail": "--voro-rail",
+      "colors.lilac": "--voro-lilac",
+      "colors.butter": "--voro-butter",
+      "colors.ink": "--voro-ink",
+      "colors.muted": "--voro-muted",
+      "colors.paper": "--voro-paper",
+      "colors.ground": "--voro-ground",
+      "colors.stage": "--voro-stage",
+      "colors.line": "--voro-line",
+      "colors.plum": "--voro-plum",
+      "colors.plum-hover": "--voro-plum-hover",
+      "colors.plum-soft": "--voro-plum-soft",
+      "colors.rail-muted": "--voro-rail-muted",
+      "colors.apricot": "--voro-apricot",
+      "colors.success": "--voro-success",
+      "colors.success-bg": "--voro-success-bg",
+      "colors.warning": "--voro-warning",
+      "colors.warning-bg": "--voro-warning-bg",
+      "colors.error": "--voro-error",
+      "colors.error-bg": "--voro-error-bg",
+      "spacing.1": "--voro-space-1",
+      "spacing.2": "--voro-space-2",
+      "spacing.3": "--voro-space-3",
+      "spacing.4": "--voro-space-4",
+      "spacing.6": "--voro-space-6",
+      "spacing.8": "--voro-space-8",
+      "typography.display.fontFamily": "--voro-font-display",
+      "typography.headline.fontFamily": "--voro-font-display",
+      "typography.title.fontFamily": "--voro-font-display",
+      "typography.wordmark.fontFamily": "--voro-font-display",
+      "typography.body.fontFamily": "--voro-font-body",
+      "typography.label.fontFamily": "--voro-font-body",
+      "rounded.control": "--voro-radius",
+      "rounded.panel": "--voro-radius-panel",
+      "shadows.overlay": "--voro-overlay-shadow",
+      "motion.fast": "--voro-motion-fast",
+      "motion.ease": "--voro-ease"
+    },
+    "tonalRampNote": "Synthesized OKLCH swatch previews only; these ramps do not establish additional shipped CSS tokens.",
+    "reducedMotion": "Disable animations, transitions, smooth scrolling, and thumbnail hover transforms."
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Commit a review action.",
+      "html": "<button class=\"ds-primary\">Save comment</button>",
+      "css": ".ds-primary{font:13px var(--voro-font-body);border-radius:var(--voro-radius);padding:8px 12px;min-height:34px;cursor:pointer;transition:background var(--voro-motion-fast),border-color var(--voro-motion-fast),color var(--voro-motion-fast);background:var(--voro-plum);color:#fff;border:1px solid var(--voro-plum);font-weight:550}.ds-primary:hover{background:var(--voro-plum-hover);border-color:var(--voro-plum-hover)}.ds-primary:active{background:#50335f}.ds-primary:focus-visible{outline:2px solid var(--voro-plum);outline-offset:3px;}.ds-primary:disabled{opacity:.45;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-primary{transition:none}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "A supporting action.",
+      "html": "<button class=\"ds-secondary\">Cancel</button>",
+      "css": ".ds-secondary{font:13px var(--voro-font-body);border-radius:var(--voro-radius);padding:8px 12px;min-height:34px;cursor:pointer;transition:background var(--voro-motion-fast),border-color var(--voro-motion-fast),color var(--voro-motion-fast);background:var(--voro-paper);color:var(--voro-ink);border:1px solid var(--voro-line)}.ds-secondary:hover{background:var(--voro-ground);border-color:#8d7d91}.ds-secondary:active{background:var(--voro-stage)}.ds-secondary:focus-visible{outline:2px solid var(--voro-plum);outline-offset:3px;}.ds-secondary:disabled{opacity:.45;cursor:not-allowed}@media(prefers-reduced-motion:reduce){.ds-secondary{transition:none}}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Editable task text.",
+      "html": "<input class=\"ds-input\" aria-label=\"Name\" placeholder=\"Your name\" />",
+      "css": ".ds-input{font:13px var(--voro-font-body);color:var(--voro-ink);background:var(--voro-paper);border:1px solid var(--voro-line);border-radius:var(--voro-radius);padding:9px 11px;caret-color:var(--voro-plum)}.ds-input::placeholder{color:var(--voro-muted);opacity:1}.ds-input:focus-visible{outline:2px solid var(--voro-plum);outline-offset:3px;}"
+    },
+    {
+      "name": "Rail navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Active and available collection choices.",
+      "html": "<nav class=\"ds-rail\" aria-label=\"Collections\"><button class=\"ds-nav ds-active\" aria-current=\"page\">All assets</button><button class=\"ds-nav\">Needs changes</button></nav>",
+      "css": ".ds-rail{width:224px;padding:16px;background:var(--voro-rail)}.ds-nav{font:13px var(--voro-font-body);border-radius:var(--voro-radius);padding:8px 12px;min-height:34px;cursor:pointer;transition:background var(--voro-motion-fast),border-color var(--voro-motion-fast),color var(--voro-motion-fast);display:block;width:100%;text-align:left;font-size:12px;padding:10px;min-height:38px;margin-bottom:3px;background:transparent;color:var(--voro-rail-muted);border:1px solid transparent}.ds-nav:hover{background:#fffdfa12;color:#fff}.ds-nav.ds-active{background:var(--voro-apricot);color:var(--voro-ink);font-weight:650}.ds-nav:focus-visible{outline:2px solid var(--voro-apricot);outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-nav{transition:none}}"
+    },
+    {
+      "name": "Approved badge",
+      "kind": "chip",
+      "refersTo": "status-approved",
+      "description": "A labeled review status.",
+      "html": "<span class=\"ds-status\"><svg width=\"11\" height=\"11\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"m8 12 3 3 5-6\"/></svg>Approved</span>",
+      "css": ".ds-status{display:inline-flex;align-items:center;gap:4px;font:550 9px var(--voro-font-body);padding:3px 5px;border-radius:9px;color:var(--voro-success);background:var(--voro-success-bg)}"
+    },
+    {
+      "name": "Asset card",
+      "kind": "card",
+      "refersTo": "asset-card",
+      "description": "Neutral stage, name, and rounded selection stroke.",
+      "html": "<button class=\"ds-card\"><span class=\"ds-stage\"><svg class=\"ds-selection\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\" fill=\"none\" aria-hidden=\"true\"><path d=\"M14 2H86Q98 2 98 14V86Q98 98 86 98H14Q2 98 2 86V14Q2 2 14 2Z\" vector-effect=\"non-scaling-stroke\"/></svg></span><strong class=\"ds-name\">Forest prop.glb</strong><small class=\"ds-path\">Props / Forest</small></button>",
+      "css": ".ds-card{display:flex;flex-direction:column;width:224px;height:240px;padding:0;text-align:left;border:1px solid transparent;border-radius:12px;background:transparent;box-shadow:none;cursor:pointer;font-family:var(--voro-font-body)}.ds-stage{position:relative;display:block;width:100%;height:182px;flex-shrink:0;overflow:hidden;background:var(--voro-stage);border-radius:9px}.ds-selection{position:absolute;inset:0;width:100%;height:100%;color:var(--voro-plum);opacity:0;transition:opacity var(--voro-motion-fast)}.ds-selection path{stroke:currentColor;stroke-width:2}.ds-card:hover .ds-selection{opacity:.4}.ds-card[aria-pressed=true] .ds-selection{opacity:1}.ds-card[aria-pressed=true] .ds-name{color:var(--voro-plum)}.ds-name{font-size:13px;font-weight:600;color:var(--voro-ink);padding-top:12px}.ds-path{font-size:11px;color:var(--voro-muted);margin-top:5px}.ds-card:focus-visible{outline:2px solid var(--voro-plum);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-selection{transition:none}}"
+    },
+    {
+      "name": "Dialog panel",
+      "kind": "custom",
+      "refersTo": "modal",
+      "description": "Elevated settings surface.",
+      "html": "<section class=\"ds-modal\" aria-label=\"Settings\"><h2 class=\"ds-modal-title\">Settings</h2><p class=\"ds-modal-copy\">Review preferences for this workspace.</p></section>",
+      "css": ".ds-modal{width:500px;max-width:100%;max-height:84vh;overflow:auto;padding:28px;background:var(--voro-paper);color:var(--voro-ink);border:0;border-radius:var(--voro-radius-panel);box-shadow:var(--voro-overlay-shadow)}.ds-modal-title{font:600 32px/1.05 var(--voro-font-display);margin:0 0 16px}.ds-modal-copy{font:12px var(--voro-font-body);margin:0 0 12px}"
+    },
+    {
+      "name": "Sprout lockup",
+      "kind": "custom",
+      "refersTo": "brand-lockup",
+      "description": "The original mascot and lowercase name.",
+      "html": "<div class=\"ds-brand\"><svg class=\"ds-mark\" viewBox=\"0 0 96 80\" fill=\"none\" aria-hidden=\"true\"><path fill=\"currentColor\" fill-rule=\"evenodd\" d=\"M29 32C12 27 6 15 10 8C26 6 38 14 42 27C45 26 49 26 52 27C58 13 75 7 86 10C86 23 75 32 66 35C74 45 79 58 71 69C64 80 34 80 23 68C15 56 20 42 29 32ZM39 50a3.5 5 0 1 0-7 0 3.5 5 0 1 0 7 0ZM60 50a3.5 5 0 1 0-7 0 3.5 5 0 1 0 7 0Z\"/><path fill=\"var(--voro-apricot)\" d=\"M65 24C69 16 76 13 82 13C80 20 73 25 65 27Z\"/></svg><span class=\"ds-wordmark\">voro</span></div>",
+      "css": ".ds-brand{display:flex;align-items:center;gap:12px;padding:24px;background:var(--voro-rail);color:var(--voro-butter)}.ds-mark{width:52px;height:46px;flex-shrink:0}.ds-wordmark{font:800 40px/1 var(--voro-font-display);letter-spacing:-.035em;text-transform:lowercase}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Game-jam artbook",
+    "overview": "VORO feels like a game-jam artbook opened beside a working project. A curious sprout mascot, expressive lowercase wordmark, and painted miniature world establish an artsy game-development identity. The product name remains VORO; the visible wordmark is voro.\n\nWarm paper supports compact review controls and readable notes. Deep plum anchors navigation, while neutral gray stages let source models lead. Painterly material lives in the key art; the working interface uses crisp controls and restrained motion.",
+    "keyCharacteristics": [
+      "Original leafy sprout mascot and lowercase voro wordmark.",
+      "Gouache key art with lilac, apricot, and butter accents.",
+      "Dense desktop review workspace with warm reading surfaces and neutral model stages."
+    ],
+    "rules": [
+      {
+        "name": "The Neutral Stage Rule",
+        "body": "Keep model thumbnails and default viewer stages neutral so the artwork being reviewed supplies their color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two Voices Rule",
+        "body": "Use Bricolage Grotesque for the wordmark and short expressive headings; use DM Sans for controls, paths, and annotations.",
+        "section": "typography"
+      },
+      {
+        "name": "The Quiet Surface Rule",
+        "body": "Keep asset cards flat; reserve the diffuse overlay shadow for dialogs.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do reuse brand/tokens.css and brand/identity.json as the canonical palette, font, and mascot sources.",
+      "Do pair review-state color with a visible label or icon.",
+      "Do preserve visible keyboard focus and the reduced-motion override.",
+      "Do keep the generated key art and its provenance together in brand/art/."
+    ],
+    "donts": [
+      "Don't stretch the mascot, add a glow, replace its apricot leaf, or place it directly over a busy object.",
+      "Don't use apricot as body text on white.",
+      "Don't turn model stages into decorative painted backgrounds.",
+      "Don't treat the compact desktop breakpoint as a shipped mobile layout."
+    ]
+  }
+}
