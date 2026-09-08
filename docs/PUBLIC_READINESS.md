@@ -28,4 +28,4 @@ Node 22: formatting and type checking passed; 11 integration tests and all four 
 
 ## Separate gates for application downloads
 
-Public source does not imply shipping binaries. There are currently no public downloads. Signing/notarization, supported macOS/CPU targets, Windows/Linux validation, real-project format testing, dependency advisories, and GPU/filesystem stress checks remain in the [release gates](IMPLEMENTATION.md#release-gates). Do not publish placeholder installers or imply all-platform support.
+The owner subsequently authorized early-access builds for each desktop platform. [Download guidance](DOWNLOADS.md) distinguishes packaged-app validation on Apple Silicon from experimental cross-builds; these are not stable or publisher-signed installers. Signing/notarization, supported macOS/CPU targets, Windows/Linux validation, real-project format testing, dependency advisories, and GPU/filesystem stress checks remain in the [release gates](IMPLEMENTATION.md#release-gates). Do not publish placeholder installers or imply all-platform support.
