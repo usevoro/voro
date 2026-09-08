@@ -1,7 +1,7 @@
 {
   "name": "asset-reviewer",
   "productName": "VORO",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "description": "An offline workspace for reviewing local 3D assets",
   "author": "VORO",
   "license": "MIT",
@@ -27,7 +27,8 @@
     "site:dev": "npm --prefix site run dev",
     "site:test": "npm --prefix site test",
     "site:refresh": "npm --prefix site run refresh",
-    "site:capture": "npm run build && tsx scripts/capture-site.ts"
+    "site:capture": "npm run build && tsx scripts/capture-site.ts",
+    "release:build": "npm run build && node scripts/release.mjs"
   },
   "engines": {
     "node": ">=22.13.0"
