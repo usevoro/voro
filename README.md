@@ -1,97 +1,72 @@
 # VORO
 
-A local Electron desktop app for browsing 3D project folders and leaving reviews beside the source files. Implemented from [PRD.md](PRD.md). macOS is the initial validation target.
+**Small details. Bigger worlds.**
 
-Maintained by [VORO](https://github.com/usevoro) in [usevoro/voro](https://github.com/usevoro/voro). The planned public website and distribution workflow are described in the [landing-page PRD](docs/LANDING_PAGE_PRD.md).
+A local workspace for game artists and developers to browse 3D assets, inspect the details, and leave feedback beside the files. Open a project folder and start reviewing. No account, upload, or server required.
 
-## Brand system
+[![License: MIT](https://img.shields.io/badge/license-MIT-755087)](LICENSE)
 
-The interface uses a game-jam artbook identity: deep plum navigation, a curious sprout mascot, Bricolage Grotesque headings, DM Sans controls, apricot accents, and painted miniature-world key art. Neutral model stages and rounded selection outlines keep review tasks clear. The same system covers first run, the gallery, viewer, reviews, and settings.
+![VORO’s full asset view, with an interactive chair preview and review notes alongside it](docs/images/inspection.jpg)
 
-Open the [visual brand guide](brand/index.html) for logos, palette, typography, voice, and examples. The [suite README](brand/README.md) explains the export formats and licenses; [DESIGN.md](DESIGN.md) records the implemented system. Edit `brand/tokens.css` and `brand/identity.json` as the canonical sources.
+## A little room for better assets
+
+- **Find your next detail.** Browse folders, search filenames, and filter by review status, format, comments, or available previews.
+- **See the whole thing.** Click an asset for a large interactive preview. Orbit, pan, zoom, inspect wireframes, and play supported animations.
+- **Keep feedback close.** Mark assets as Unreviewed, Needs changes, or Approved. Save comments into small JSON sidecars beside each source file.
+- **Take your reviews with you.** Export saved project reviews as structured JSON, readable by people, scripts, and AI tools. Published [JSON Schemas](docs/REVIEW_FORMAT.md) describe the format.
+- **Stay in your project.** Files, cached thumbnails, and device-only drafts stay local. No cloud sync or issue-tracker integration is required or implemented.
+
+![VORO’s asset collection with folders, preview thumbnails, filters, and review statuses](docs/images/collection.jpg)
+
+Screenshots show the real app with synthetic sample assets and illustrative reviews. See [screenshot provenance](docs/images/README.md).
+
+## Try it
+
+VORO is in early development. **There are no public application downloads yet.** macOS Apple Silicon is the current local validation target; Windows and Linux builds are not ready to advertise. Follow [releases](https://github.com/usevoro/voro/releases) for future builds.
+
+To run from source, use **Node.js 22.13+ in the 22.x line** (the version selected by `.nvmrc`):
 
 ```sh
-npm run brand:build    # Regenerate logos, icon, presentation cover, token JSON
-npm run brand:capture  # Capture desktop and minimum-size workflows using synthetic assets
-```
-
-VORO is the display name. The original bundle identifier, `asset-reviewer` package name, storage directories, sidecar schema, and environment-variable names remain compatible, preserving existing projects and drafts.
-
-The app bundles fonts and artwork locally. The native macOS icon is included when packaging. Review captures live in `.impeccable/review/`; brand source files and review metadata are excluded from the packaged app.
-
-## Run
-
-Use **Node.js 22.13 or newer in the 22.x LTS line** (`nvm use`). Node 26 can build and run the app, but the current Forge ZIP extraction dependency silently exits during packaging on Node 26; use Node 22 for packaging.
-
-```sh
+git clone https://github.com/usevoro/voro.git
+cd voro
+nvm use
 npm ci
 npm start
 ```
 
-Choose **Open folder**. GLB/glTF assets get cached thumbnails and an interactive preview. FBX, OBJ, USD variants, and Blender files remain reviewable catalog entries with an explicit unsupported-preview state.
-
-To generate a sample project without touching existing assets:
+Choose **Open folder**, or generate a small practice project first:
 
 ```sh
-npm run fixtures -- /tmp/asset-reviewer-sample
+npm run fixtures -- /tmp/voro-sample
 ```
 
-Open that folder in the app. The sample includes furniture, objects, animation, an external buffer/texture, and deliberate failure cases.
+Open `/tmp/voro-sample` in VORO. It contains synthetic furniture, objects, animation, and deliberate error cases for testing recovery.
 
-## Workflow
+| Format                                    | Browse and review | Interactive preview                                              |
+| ----------------------------------------- | ----------------- | ---------------------------------------------------------------- |
+| GLB / glTF                                | Yes               | Yes, including locally bundled Draco, Meshopt, and KTX2 decoders |
+| FBX, OBJ, BLEND, USD / USDA / USDC / USDZ | Yes               | Not yet                                                          |
 
-- Use folder carets to expand or collapse the project and nested branches; click folder names to filter assets. Collapsing keeps the active filter and nested disclosure state during scans.
-- Search filenames or relative paths; filter by folder, status, format, comments, and preview availability; sort by name, path, or modification time.
-- Select a card to open a large preview with notes beside it. Use **Compact view** to browse the gallery alongside the inspector, or **Back to assets** to return. Drag to orbit, right-drag to pan, scroll to zoom. Frame, wireframe, background, and animation controls are below the viewer.
-- **Filters → Preview available** hides queued, failed, and unsupported previews. Assets appear as their previews finish.
-- **Export reviews** saves all cataloged project reviews to a portable JSON file, independent of gallery filters. Device-only drafts are excluded; unreadable and orphaned notes are reported in the export. See the [review format and JSON Schemas](docs/REVIEW_FORMAT.md).
-- Add/edit/delete comments and choose Unreviewed, Needs changes, or Approved. Saves are explicit and report their result.
-- Drafts stay on this device across selection changes and restarts. External review changes preserve drafts and ask you to load the latest review before saving.
-- Project settings control exclusions, explicitly authorized external dependency folders, and the thumbnail cache. A rescan button recovers missed watcher events.
-- Scan notices list skipped symlinks, errors, and orphaned notes. Explicit reattachment copies an orphan to the selected asset and preserves the orphan as a recovery copy.
+Support has been checked against specific fixtures, not every exporter or glTF extension. See the [validation matrix and release limits](docs/IMPLEMENTATION.md).
 
-Keyboard: **⌘/Ctrl F** focuses search; arrow keys move between focused cards; **Enter/Space** opens a card; **Escape** closes inspection or dialogs; **⌘/Ctrl Enter** submits a comment.
+## Reviews belong with the work
 
-## Persistence and security
+A model named `chair.glb` gets a review file named `.chair.glb.notes.json`. Saved reviews travel with the project; VORO’s SQLite catalog and thumbnail cache can be rebuilt. Unsaved drafts stay on the current device and are excluded from exports.
 
-Reviews use the PRD's version 1 JSON schema and naming convention, for example `.chair.glb.notes.json`. The full filename avoids extension collisions. Saves are serialized, revision-checked, flushed to a same-directory temporary file, and atomically renamed. Invalid/unknown-version notes are preserved. The correctly named sidecar is authoritative after an external rename; its stored UUID retains review identity. Duplicate UUIDs remain separate by source path and produce a notice.
+Saves are explicit, and VORO detects stale revisions and preserves malformed notes. This is optimistic conflict protection; sync clients can still race a save. See [review files and export](docs/REVIEW_FORMAT.md) for the schema, identity rules, and limitations.
 
-SQLite and the 512 MB thumbnail cache live in Electron's `userData` directory (normally `~/Library/Application Support/asset-reviewer` in development). Deleting them does not delete saved reviews. Drafts live in the UI's local storage in the same application-data directory and are not shared with the project.
+## Help VORO grow
 
-The main process owns native dialogs and validates a narrow IPC API. Scanning, SQLite, dependency indexing, and sidecar I/O run in an Electron utility process. The UI and hidden thumbnail renderer are sandboxed with Node integration disabled. Canonical resource paths must fall inside the project or explicitly granted resource folders. Network requests, unexpected navigation, window creation, and permission requests are blocked.
+Bug reports, focused fixes, documentation, and reproducible format samples are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) for setup, checks, and the pull-request workflow. Use synthetic or shareable assets and remove personal paths from screenshots.
 
-KTX2/Basis requires generated JavaScript bindings. Only its **static bundled worker** has `unsafe-eval` in its own CSP; UI renderers do not. Draco and Meshopt are bundled locally too. No model content is evaluated as JavaScript.
+- [Report a bug or propose an improvement](https://github.com/usevoro/voro/issues)
+- [Report a vulnerability privately](SECURITY.md)
+- [Development, packaging, keyboard controls, and architecture](docs/DEVELOPMENT.md)
+- [Design guide](DESIGN.md) and [brand assets](brand/README.md)
+- [Product website source](https://github.com/usevoro/website)
 
-## Build and verify
+Website changes belong in `usevoro/website`; `site/` here is an archived pre-extraction snapshot. Community participation follows our [Code of Conduct](CODE_OF_CONDUCT.md).
 
-```sh
-npm run typecheck
-npm test
-npm run test:e2e
-npm run package
-npm run make
-```
+## License
 
-Forge packages the current architecture. The macOS ZIP maker is enabled; Windows/Linux are not advertised as validated releases. SQLite uses Electron's bundled `node:sqlite`, so there is no separate native SQLite addon to rebuild.
-
-To run the same smoke tests against the packaged macOS executable:
-
-```sh
-ASSET_REVIEWER_EXECUTABLE="$PWD/out/VORO-darwin-arm64/VORO.app/Contents/MacOS/VORO" npm run test:e2e
-```
-
-The native directory picker is stubbed to temporary fixtures in automated tests. Rendering, sandboxing, IPC, processes, files, watchers, saves, and restarts are real. Screenshots are written to `test-results/`.
-
-```sh
-npm run benchmark
-```
-
-This creates and removes a temporary 10,000-asset / 50,000-file fixture and records catalog measurements in `docs/benchmark.json`. It is not a representative rendering or scrolling benchmark.
-
-See [implementation and validation notes](docs/IMPLEMENTATION.md) for tested formats, limits, and remaining release gates.
-
-## Product website
-
-The landing page is maintained in the public **[usevoro/website](https://github.com/usevoro/website)** repository. Its source has independent history, MIT licensing, contributor documentation, and CI.
-
-For Vercel, import that repository with **Root Directory `.`** and **Framework Preset `Other`**. The original `site/` folder here is retained as the pre-extraction snapshot; make website changes in the standalone repository.
+VORO is available under the [MIT license](LICENSE). Fonts, decoder dependencies, and attributed fixtures retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md).

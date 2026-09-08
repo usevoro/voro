@@ -1,0 +1,16 @@
+name: Feature proposal
+description: Suggest a focused improvement to the desktop review workflow.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the workflow, relevant examples, and alternatives.
+    validations:
+      required: true
