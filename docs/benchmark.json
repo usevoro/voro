@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-08T11:52:15.369Z",
+  "platform": "darwin",
+  "arch": "arm64",
+  "osRelease": "25.6.0",
+  "cpu": "Apple M5 Max",
+  "memoryGb": 48,
+  "node": "v26.7.0",
+  "storage": "Local macOS temporary directory, APFS; disk model not measured",
+  "assets": 10000,
+  "totalFiles": 50000,
+  "firstResultMs": 1903.098833,
+  "coldScanMs": 5587.191707999999,
+  "warmResultsMs": 15.581707999999708,
+  "queryMeanMs": 16.90237833999996,
+  "queryMaxMs": 31.071665999999823,
+  "nodeRssMb": 568.625,
+  "scope": "Catalog only. Repeated 72-triangle chair fixture; no GPU thumbnails or scrolling benchmark. Not a real-asset performance claim."
+}
