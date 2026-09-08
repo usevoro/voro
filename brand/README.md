@@ -9,7 +9,7 @@ Open **index.html** for the visual reference. Open **../DESIGN.md** for the impl
 ## Included
 
 - `logos/`: Sprout mascot in plum, white/accent, and single-color ink; horizontal and compact outlined wordmarks for light and dark surfaces. SVGs are independent of installed fonts.
-- `icons/`: native macOS `.icns`, editable SVG, and transparent 1024px PNG.
+- `icons/`: native macOS `.icns`, multi-resolution Windows `.ico`, editable SVG, and transparent 1024px PNG.
 - `art/`: generated gouache game-world key art and its prompt/provenance record.
 - `templates/`: 1600 × 900 presentation cover as outlined SVG and PNG. Replace its text in the generator to make a new cover; never distort the mark.
 - `tokens.css`: canonical colors, local font faces, spacing, radii, and motion used directly by the application.

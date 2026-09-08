@@ -70,8 +70,8 @@ The recorded Node RSS includes fixture preparation and watcher/catalog allocatio
 1. Validate the user's real project formats, exporter versions, storage locations, asset complexity, and preview expectations.
 2. Agree on minimum macOS version/CPU targets and establish a measured application/GPU memory budget.
 3. Run longer GPU crash/large-model stress, read-only/network-share/sync-folder checks, and representative screenshot comparisons.
-4. Run platform smoke tests on Windows and Linux before enabling their release makers; Windows hidden attributes and filesystem semantics need native validation.
-5. Supply signing/notarization credentials for a distributable signed macOS release. Current app is an unsigned local development build.
+4. Run platform smoke tests on Windows and Linux before promoting their experimental archives beyond early access; Windows hidden attributes and filesystem semantics need native validation.
+5. Supply signing/notarization credentials for a distributable signed macOS release. Current macOS archives are ad-hoc signed early-access builds, without Developer ID signing or notarization.
 6. Recheck dependency advisories before distribution. Runtime dependencies audit clean on the implementation date. Forge's current development dependency chain still reports advisories through `extract-zip`; tar/tmp overrides remove the reported critical tar and tmp findings. Do not force a Forge downgrade as an audit workaround.
 
 The original PRD is unchanged. M0's real-asset and hardware decisions cannot be closed from synthetic fixtures alone.

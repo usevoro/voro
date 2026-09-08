@@ -68,7 +68,7 @@ npm run package
 npm run make
 ```
 
-Forge packages the current architecture. The macOS ZIP maker is enabled; Windows/Linux are not advertised as validated releases. SQLite uses Electron's bundled `node:sqlite`, so there is no separate native SQLite addon to rebuild.
+Forge packages the current architecture. ZIP makers are enabled for macOS, Windows, and Linux. Cross-built archives are early access and do not imply native runtime validation; see [downloads](DOWNLOADS.md). SQLite uses Electron's bundled `node:sqlite`, so there is no separate native SQLite addon to rebuild.
 
 To run the same smoke tests against the packaged macOS executable:
 
