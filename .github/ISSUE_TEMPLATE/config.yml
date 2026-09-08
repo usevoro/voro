@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security reporting
+    url: https://github.com/usevoro/voro/blob/main/SECURITY.md
+    about: Request a private channel; do not disclose vulnerabilities in public issues.
+  - name: Website feedback
+    url: https://github.com/usevoro/website/issues
+    about: Website changes belong in the separate website repository.

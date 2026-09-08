@@ -1,0 +1,34 @@
+name: Bug report
+description: Report a reproducible problem with the VORO desktop app.
+title: '[Bug]: '
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: 'For vulnerabilities, follow SECURITY.md. Do not attach private project files or credentials.'
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Include what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Use synthetic or shareable assets. Include format/exporter details for preview problems.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: App version or commit, OS, and CPU architecture
+      placeholder: 'Commit abc1234, macOS, Apple Silicon'
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or logs
+      description: Remove personal paths, private reviews, and proprietary content before sharing.

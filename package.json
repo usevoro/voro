@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "description": "An offline workspace for reviewing local 3D assets",
   "author": "VORO",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "main": "dist/main/index.cjs",
   "type": "module",
   "scripts": {
@@ -64,5 +64,13 @@
     "tar": "^7.5.22",
     "tmp": "^0.2.7"
   },
-  "private": true
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/usevoro/voro.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usevoro/voro/issues"
+  },
+  "homepage": "https://github.com/usevoro/voro#readme"
 }

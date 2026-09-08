@@ -1,0 +1,4 @@
+# Review ownership; enforcement is configured separately in repository settings.
+* @Domogo
+/.github/ @Domogo
+/LICENSE @Domogo
