@@ -1,14 +1,14 @@
 # Repository administration
 
-## Current access and limitations
+## Current access
 
-As checked on September 9, 2026, `usevoro/voro` is private, the organization is on GitHub Free, the default organization permission is read, and only `@Domogo` has repository write access (as owner/admin). No repository teams or deploy keys grant additional access. Ordinary contributors have no direct push permission.
+As checked on September 9, 2026, `usevoro/voro` is public, the organization is on GitHub Free, the default organization permission is read, and only `@Domogo` has repository write access (as owner/admin). No repository teams or deploy keys grant additional access. Ordinary contributors have no direct push permission.
 
-GitHub returns HTTP 403 for branch protection and rulesets on this private Free-plan repository: upgrade the organization plan or make the repository public to enable them. The file below is prepared configuration, **not an active protection rule**. Keep contributor permissions at read/triage until protection is enforced. Never grant admin for routine contributions.
+The owner authorized publication on September 9, 2026. Main-branch protection was applied and verified immediately after publication. The committed policy below matches the active GitHub configuration. Keep routine contributors at read/triage and accept changes through forks; never grant admin for routine contributions.
 
-GitHub Actions is disabled at the repository level, and the automatic workflow has been removed. No status check is required by the proposed protection. Do not enable hosted CI, dependency-update workflows, or publishing automation without the maintainer’s agreement. Validation runs locally.
+GitHub Actions is disabled at the repository level, and the automatic workflow has been removed. No status check is required by the active protection. Do not enable hosted CI, dependency-update workflows, or publishing automation without the maintainer’s agreement. Validation runs locally.
 
-## Prepared main protection
+## Active main protection
 
 [`.github/main-protection.json`](../.github/main-protection.json) requires:
 
@@ -20,9 +20,9 @@ GitHub Actions is disabled at the repository level, and the automatic workflow h
 
 There is one maintainer, so the required approval count is zero and code-owner approval is not mandatory. The owner’s merge is the maintainer acceptance step for contributed changes. CODEOWNERS requests their review; it is not a substitute for branch protection. This configuration does not claim independent peer review of the owner’s own work. If a second trusted maintainer joins, require one approving review and code-owner review, then update both CODEOWNERS and the allowed merge users. Repository admins can still deliberately change protection settings.
 
-## Activate after public visibility or a plan upgrade
+## Maintain and verify protection
 
-Only change visibility with the owner’s explicit authorization. Review [public readiness](PUBLIC_READINESS.md) first. The following commands do not change visibility and do not enable Actions:
+The [publication record](PUBLIC_READINESS.md) documents the launch and validation. The following commands reapply and inspect protection; they do not change visibility or enable Actions:
 
 ```sh
 gh api --method PUT repos/usevoro/voro/branches/main/protection \
@@ -38,4 +38,4 @@ Repository merge settings allow squash or rebase merges (to preserve logical com
 
 ## Launch settings
 
-After authorized publication, enable GitHub’s built-in private vulnerability reporting, secret scanning, and push protection where available. These settings are separate from Actions; leave Actions disabled. Verify the security reporting link works before telling users it is available. Review collaborator, team, app, and deploy-key access before adding contributors. Keep signing credentials out of repository files and history.
+GitHub’s built-in private vulnerability reporting, secret scanning, and secret push protection are enabled and verified. These settings are separate from Actions; leave Actions disabled. Dependency-update automation remains disabled. Review collaborator, team, app, and deploy-key access before adding contributors. Keep signing credentials out of repository files and history.
