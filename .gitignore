@@ -1,0 +1,15 @@
+node_modules/
+dist/
+out/
+.playwright/
+test-results/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+
+# Keep the current design system; omit local captures and superseded drafts.
+.impeccable/*
+!.impeccable/design.json
+!.impeccable/direction.md
