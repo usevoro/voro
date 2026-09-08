@@ -58,6 +58,22 @@ test(
         .toBe('ready');
       await page.getByRole('button', { name: 'Inspect Arc chair.glb' }).click();
       await expect(page.getByText('Drag to orbit')).toBeVisible({ timeout: 30000 });
+      await expect(page.locator('.inspector.expanded')).toBeVisible();
+      await expect(page.locator('.gallery')).toBeHidden();
+      const fullSize = await page.locator('.viewer canvas').boundingBox();
+      assert.ok(fullSize && fullSize.width > 700 && fullSize.height > 400);
+      await page.getByRole('button', { name: 'Compact preview' }).click();
+      await expect(page.locator('.gallery')).toBeVisible();
+      const frame = await page.locator('.asset-card.selected .asset-image').evaluate((el) => ({
+        radius: getComputedStyle(el).borderRadius,
+        borderRadius: getComputedStyle(el, '::after').borderRadius,
+        border: getComputedStyle(el, '::after').borderWidth,
+        svg: el.querySelector('svg.selection-frame') !== null,
+      }));
+      assert.equal(frame.radius, frame.borderRadius);
+      assert.equal(frame.border, '2px');
+      assert.equal(frame.svg, false);
+      await page.getByRole('button', { name: 'Full view preview' }).click();
       // Start typing immediately after a status save; its response must rebase
       // this new draft instead of treating it as an external conflict.
       await page.getByLabel('Review status').selectOption('needs_changes');
@@ -77,7 +93,33 @@ test(
       await page
         .getByLabel('Comment', { exact: true })
         .fill('Keep this draft across selection changes.');
+      const exportPath = path.join(base, 'reviews.json');
+      await app.evaluate(({ dialog }, filePath) => {
+        dialog.showSaveDialog = (async () => ({
+          canceled: false,
+          filePath,
+        })) as typeof dialog.showSaveDialog;
+      }, exportPath);
+      await page.getByRole('button', { name: 'Export reviews', exact: true }).click();
+      await expect(
+        page.getByRole('status').filter({ hasText: 'Exported 1 saved reviews' }),
+      ).toBeVisible();
+      const exported = JSON.parse(await readFile(exportPath, 'utf8'));
+      assert.equal(exported.format, 'voro.review-export');
+      assert.equal(exported.reviews[0].review.comments.length, 1);
+      assert.equal(exported.reviews[0].review.comments[0].text, 'Soften the front edge.');
+      assert.equal(exported.reviews[0].review.assetId, saved.assetId);
+      assert.equal(exported.reviews[0].asset.path, 'Furniture/Arc chair.glb');
+      await app.evaluate(({ dialog }) => {
+        dialog.showSaveDialog = (async () => ({
+          canceled: true,
+          filePath: '',
+        })) as typeof dialog.showSaveDialog;
+      });
+      assert.equal(await page.evaluate(() => window.reviewer.exportReviews()), null);
+      await page.getByRole('button', { name: 'Back to assets' }).click();
       await page.getByRole('button', { name: 'Inspect Clay vessel.glb' }).click();
+      await page.getByRole('button', { name: 'Back to assets' }).click();
       await page.getByRole('button', { name: 'Inspect Arc chair.glb' }).click();
       await expect(page.getByLabel('Comment', { exact: true })).toHaveValue(
         'Keep this draft across selection changes.',
@@ -125,7 +167,18 @@ test(
       assert.equal(security.traversal, 403);
       assert.equal(security.network, true);
       assert.equal(security.bridge, true);
-      await page.getByRole('button', { name: 'Close inspector' }).click();
+      await page.getByRole('button', { name: 'Back to assets' }).click();
+      await expect(page.getByRole('button', { name: 'Inspect Arc chair.glb' })).toBeFocused();
+      await page.getByRole('button', { name: 'Filters', exact: true }).click();
+      await page.getByLabel('Preview available').check();
+      await expect(page.locator('.collection-count')).toHaveText('9 files');
+      await expect(page.getByText('Preview unavailable', { exact: true })).toHaveCount(0);
+      await page.getByLabel('Filter format').selectOption('obj');
+      await expect(page.locator('.collection-count')).toHaveText('0 files');
+      await page.getByRole('button', { name: 'Clear filters' }).click();
+      await expect(page.getByLabel('Preview available')).not.toBeChecked();
+      await expect(page.locator('.collection-count')).toHaveText('12 files');
+      await page.getByRole('button', { name: 'Filters', exact: true }).click();
       await page.getByLabel('Search assets').fill('Sculpture');
       await page.getByRole('button', { name: 'Inspect Sculpture.glb' }).click();
       await expect(page.getByLabel('Animation clip')).toBeVisible({ timeout: 20000 });
@@ -186,6 +239,7 @@ test(
       for (const name of ['Draco knot.glb', 'KTX2 cube.gltf', 'Meshopt knot.gltf']) {
         await page.getByRole('button', { name: `Inspect ${name}` }).click();
         await expect(page.getByText('Drag to orbit')).toBeVisible({ timeout: 15000 });
+        await page.getByRole('button', { name: 'Back to assets' }).click();
       }
     } finally {
       await app.close();

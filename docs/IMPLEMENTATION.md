@@ -5,9 +5,11 @@
 - Electron shell, native folder selection, persisted recent projects, single instance.
 - SQLite utility-process catalog, paginated queries, progressive recursive scans, cancel/rescan, exclusions, symlink reporting, debounced watching, dependency indexing, and resume reconciliation.
 - Virtualized image grid, search/filter/sort, folder/status counts, keyboard controls, explicit loading/error states, retry and reveal actions.
+- Full asset preview by default with an independently scrolling review column and a compact-view toggle; matching CSS thumbnail selection borders; preview-availability filtering.
 - GLTF format adapter, orbit/pan/zoom/frame, preview background and wireframe controls, per-instance geometry statistics, animation selection/play/pause.
 - One hidden thumbnail renderer, bounded queue prioritizing the visible/selected assets, generation checks, timeout/restart behavior, resource disposal, disk cache and eviction.
 - Versioned sidecars, comment create/edit/delete, review status, optimistic conflict protection, draft persistence, malformed/read-only protection, external-note detection, explicit orphan reattachment.
+- Local JSON export of saved project reviews, stable review/comment IDs, relative asset paths, omission warnings, and generated public JSON Schemas. See [review format](REVIEW_FORMAT.md); no issue-tracker connection is implemented.
 - Root-scoped protocol, symlink canonicalization, explicit/revocable resource-folder grants, sandboxed renderers, IPC validation, offline decoders and network blocking.
 
 ## Verified build
@@ -15,10 +17,11 @@
 On September 8, 2026, the macOS arm64 build passed:
 
 - TypeScript type checking and repository formatting checks.
-- Eight filesystem/catalog integration tests.
-- Three end-to-end suites in both development and the packaged `.app`: the review/restart workflow, offline Draco/Meshopt/KTX2 rendering, and resource grants/thumbnail crash recovery/comment deletion.
+- Ten filesystem/catalog integration tests, including preview filtering/pagination and non-mutating review exports with malformed/orphan sidecars.
+- Three end-to-end suites in both development and the packaged `.app`: the full/compact preview, filtering, export, and review/restart workflow; offline Draco/Meshopt/KTX2 rendering, and resource grants/thumbnail crash recovery/comment deletion.
 - Forge packaging and ZIP creation using Node 22.23.2 and Electron 44.2.0.
-- Runtime dependency audit with zero reported vulnerabilities.
+- Visual inspection at 1480 × 960 and 1080 × 700 with no horizontal overflow or renderer errors.
+- Runtime dependency audit with zero reported vulnerabilities (initial build).
 
 Build outputs are in `out/VORO-darwin-arm64/` and `out/make/zip/darwin/arm64/`. The GitHub Actions workflow reproduces the macOS checks; it has been configured but has not been run remotely from this local folder.
 

@@ -7,6 +7,9 @@ import {
   Send,
   Trash2,
   X,
+  ArrowLeft,
+  Maximize2,
+  Minimize2,
   AlertCircle,
 } from 'lucide-react';
 import type { Asset, Comment, ReviewState, ReviewStatus } from '../shared/contracts';
@@ -29,11 +32,15 @@ export function Inspector({
   close,
   refresh,
   version,
+  expanded,
+  toggleExpanded,
 }: {
   asset: Asset;
   close(): void;
   refresh(): void;
   version: number;
+  expanded: boolean;
+  toggleExpanded(): void;
 }) {
   const [notes, setNotes] = useState<ReviewState | null>(null),
     [draft, setDraft] = useState<Draft>({ text: '', revision: null }),
@@ -42,6 +49,10 @@ export function Inspector({
     [saving, setSaving] = useState(false),
     [saved, setSaved] = useState(false),
     [deleteId, setDeleteId] = useState<string | null>(null);
+  const back = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    back.current?.focus();
+  }, [asset.id]);
   const key = `draft:${asset.projectId}:${asset.id}`;
   const current = useRef({ draft, notes, saving });
   current.current = { draft, notes, saving };
@@ -141,14 +152,29 @@ export function Inspector({
   };
   const disabled = saving || !notes?.writable || Boolean(notes?.error) || conflict;
   return (
-    <aside className="inspector" aria-label="Asset inspector">
+    <aside className={`inspector ${expanded ? 'expanded' : ''}`} aria-label="Asset inspector">
       <header className="inspector-heading">
-        <div>
+        {expanded && (
+          <button ref={back} className="back-to-assets" onClick={close}>
+            <ArrowLeft size={16} /> Back to assets
+          </button>
+        )}
+        <div className="inspector-title">
           <h2>{asset.name}</h2>
         </div>
-        <button aria-label="Close inspector" onClick={close}>
-          <X size={18} />
+        <button
+          aria-label={expanded ? 'Compact preview' : 'Full view preview'}
+          title={expanded ? 'Show the asset grid beside the inspector' : 'Open a larger preview'}
+          onClick={toggleExpanded}
+        >
+          {expanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+          <span>{expanded ? 'Compact view' : 'Full view'}</span>
         </button>
+        {!expanded && (
+          <button ref={back} aria-label="Close inspector" onClick={close}>
+            <X size={18} />
+          </button>
+        )}
       </header>
       <Viewer asset={asset} />
       <div className="inspector-content">

@@ -17,7 +17,19 @@ try {
   const errors: string[] = [];
   page.on('pageerror', (e) => errors.push(e.message));
   const capture = async (name: string) => {
-    await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+    await page.waitForFunction(() => {
+      const gallery = document.querySelector<HTMLElement>('.gallery');
+      const card = gallery?.querySelector<HTMLElement>('.card-position');
+      if (!gallery || !card || !gallery.clientWidth) return true;
+      const columns = Math.max(1, Math.floor((gallery.clientWidth - 32) / 224));
+      return (
+        Math.abs(card.getBoundingClientRect().width - (gallery.clientWidth - 32) / columns) < 1
+      );
+    });
     await page.screenshot({ path: `.impeccable/review/${name}.png` });
     checks[name] = await page.evaluate(() => ({
       width: innerWidth,
@@ -73,6 +85,9 @@ try {
     el.scrollTop = 0;
   });
   await capture('desktop-inspection');
+  await page.getByRole('button', { name: 'Compact preview' }).click();
+  await capture('desktop-compact-inspection');
+  await page.getByRole('button', { name: 'Full view preview' }).click();
   await size(1080, 700);
   await page.locator('.inspector').evaluate((el) => {
     el.scrollTop = 0;
@@ -83,9 +98,11 @@ try {
   await page.getByRole('button', { name: 'Project settings' }).click();
   await capture('minimum-settings');
   await page.getByRole('button', { name: 'Close settings' }).click();
-  await page.getByRole('button', { name: 'Close inspector' }).click();
+  await page.getByRole('button', { name: 'Back to assets' }).click();
   const filters = page.getByRole('button', { name: /Filters/ });
   await filters.click();
+  await page.getByLabel('Preview available').check();
+  await expect(page.locator('.collection-count')).toHaveText('9 files');
   await capture('minimum-filters');
   checks.errors = errors;
   const guideWindow = app.waitForEvent('window', (p) => !p.url().endsWith('/thumbnail.html'));

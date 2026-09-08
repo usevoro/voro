@@ -17,22 +17,6 @@ export function BrandLockup() {
     </div>
   );
 }
-export function SelectionFrame() {
-  return (
-    <svg
-      className="selection-frame"
-      viewBox="0 0 100 100"
-      preserveAspectRatio="none"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M14 2H86Q98 2 98 14V86Q98 98 86 98H14Q2 98 2 86V14Q2 2 14 2Z"
-        vectorEffect="non-scaling-stroke"
-      />
-    </svg>
-  );
-}
 export function BrandStudy() {
   return (
     <figure className="brand-study">

@@ -20,6 +20,7 @@ import {
   HardDrive,
   Settings2,
   RotateCcw,
+  Download,
 } from 'lucide-react';
 import type {
   Asset,
@@ -30,7 +31,7 @@ import type {
   ReviewStatus,
 } from '../shared/contracts';
 import { Inspector, statusNames } from './Inspector';
-import { BrandLockup, BrandStudy, SelectionFrame } from './Brand';
+import { BrandLockup, BrandStudy } from './Brand';
 const emptySummary: Summary = {
   total: 0,
   statuses: { unreviewed: 0, needs_changes: 0, approved: 0 },
@@ -47,6 +48,9 @@ export function App() {
     [query, setQuery] = useState<AssetQuery>({ search: '', sort: 'name' }),
     [result, setResult] = useState<QueryResult>({ assets: [], total: 0 }),
     [selected, setSelected] = useState<Asset | null>(null),
+    [fullPreview, setFullPreview] = useState(true),
+    [exporting, setExporting] = useState(false),
+    [exportMessage, setExportMessage] = useState(''),
     [error, setError] = useState(''),
     [opening, setOpening] = useState(false),
     [settings, setSettings] = useState(false),
@@ -63,6 +67,7 @@ export function App() {
     offset = firstRow * columns;
   const limit = Math.min(200, (Math.ceil(metrics.height / rowHeight) + 3) * columns);
   const patchQuery = (patch: Partial<AssetQuery>) => {
+    setSelected(null);
     setQuery((q) => ({ ...q, ...patch }));
     if (scroll.current) scroll.current.scrollTop = 0;
     setMetrics((m) => ({ ...m, top: 0 }));
@@ -141,8 +146,8 @@ export function App() {
     const observer = new ResizeObserver(([entry]) =>
       setMetrics((m) => ({
         ...m,
-        width: entry.contentRect.width,
-        height: entry.contentRect.height,
+        width: entry.contentRect.width || m.width,
+        height: entry.contentRect.height || m.height,
       })),
     );
     observer.observe(scroll.current);
@@ -155,7 +160,10 @@ export function App() {
         search.current?.focus();
       }
       if (e.key === 'Escape' && !(e.target instanceof HTMLTextAreaElement)) {
-        setSelected(null);
+        setSelected((old) => {
+          if (old) requestAnimationFrame(() => document.getElementById(`asset-${old.id}`)?.focus());
+          return null;
+        });
         setSettings(false);
         setIssues(false);
       }
@@ -166,6 +174,7 @@ export function App() {
   async function open(id?: string) {
     setOpening(true);
     setError('');
+    setExportMessage('');
     try {
       const value = await window.reviewer.openProject(id);
       if (value) {
@@ -179,6 +188,7 @@ export function App() {
           format: undefined,
           folder: undefined,
           comments: false,
+          previewOnly: false,
         });
         setRecent(await window.reviewer.recentProjects());
         refresh();
@@ -191,9 +201,10 @@ export function App() {
   }
   const select = (asset: Asset) => {
     setSelected(asset);
+    setFullPreview(true);
     run(window.reviewer.prioritize([asset.id]));
   };
-  async function navigate(e: React.KeyboardEvent, asset: Asset, index: number) {
+  async function navigate(e: React.KeyboardEvent, index: number) {
     const delta: Record<string, number> = {
       ArrowRight: 1,
       ArrowLeft: -1,
@@ -206,12 +217,32 @@ export function App() {
     try {
       const page = await window.reviewer.queryAssets({ ...query, offset: nextIndex, limit: 1 });
       if (page.assets[0]) {
-        select(page.assets[0]);
+        // Arrow keys move through the contact sheet; Enter opens the focused asset.
         scroll.current?.scrollTo({ top: Math.floor(nextIndex / columns) * rowHeight });
         setTimeout(() => document.getElementById(`asset-${page.assets[0].id}`)?.focus(), 180);
       }
     } catch (e) {
       setError(String(e));
+    }
+  }
+  const closeInspector = () => {
+    const id = selected?.id;
+    setSelected(null);
+    requestAnimationFrame(() => document.getElementById(`asset-${id}`)?.focus());
+  };
+  async function exportReviews() {
+    setExporting(true);
+    setExportMessage('');
+    try {
+      const result = await window.reviewer.exportReviews();
+      if (result)
+        setExportMessage(
+          `Exported ${result.reviews} saved reviews${result.warnings ? ` · ${result.warnings} warnings included in the file` : ''}.`,
+        );
+    } catch (e) {
+      setError(String(e));
+    } finally {
+      setExporting(false);
     }
   }
   const statusIcon = (status: ReviewStatus) =>
@@ -347,6 +378,15 @@ export function App() {
             <div className="toolbar-right">
               {project && (
                 <button
+                  onClick={() => void exportReviews()}
+                  disabled={exporting || summary.scan.running}
+                  title="Export all saved project reviews as JSON; drafts are excluded"
+                >
+                  <Download size={15} /> {exporting ? 'Exporting…' : 'Export reviews'}
+                </button>
+              )}
+              {project && (
+                <button
                   aria-label="Rescan project"
                   title="Rescan project"
                   onClick={() => run(window.reviewer.rescan())}
@@ -359,6 +399,14 @@ export function App() {
               </span>
             </div>
           </header>
+          {exportMessage && (
+            <div className="export-notice" role="status">
+              <span>{exportMessage}</span>
+              <button aria-label="Dismiss export message" onClick={() => setExportMessage('')}>
+                <X size={14} />
+              </button>
+            </div>
+          )}
           {error && (
             <div role="alert" className="global-error">
               <span>{error}</span>
@@ -482,11 +530,15 @@ export function App() {
                   <kbd>⌘ F</kbd>
                 </div>
                 <button
+                  aria-expanded={formatFilter}
+                  aria-controls="asset-filters"
                   className={`filter-button ${formatFilter ? 'pressed' : ''}`}
                   onClick={() => setFormatFilter((v) => !v)}
                 >
                   <SlidersHorizontal size={15} /> Filters
-                  {(query.format || query.comments) && <span className="filter-dot" />}
+                  {(query.format || query.comments || query.previewOnly) && (
+                    <span className="filter-dot" />
+                  )}
                 </button>
                 <select
                   aria-label="Sort assets"
@@ -499,7 +551,7 @@ export function App() {
                 </select>
               </div>
               {formatFilter && (
-                <div className="filter-tray">
+                <div className="filter-tray" id="asset-filters">
                   <label>
                     Format{' '}
                     <select
@@ -525,11 +577,20 @@ export function App() {
                     />{' '}
                     Has comments
                   </label>
+                  <label title="Show assets with a successfully generated preview. Queued, failed, and unsupported assets are hidden.">
+                    <input
+                      type="checkbox"
+                      checked={query.previewOnly || false}
+                      onChange={(e) => patchQuery({ previewOnly: e.target.checked })}
+                    />
+                    Preview available
+                  </label>
                   <button
                     onClick={() =>
                       patchQuery({
                         format: undefined,
                         comments: false,
+                        previewOnly: false,
                         status: undefined,
                         folder: undefined,
                       })
@@ -539,7 +600,7 @@ export function App() {
                   </button>
                 </div>
               )}
-              <div className="content">
+              <div className={`content ${selected && fullPreview ? 'full-preview' : ''}`}>
                 <div
                   className="gallery"
                   ref={scroll}
@@ -552,11 +613,23 @@ export function App() {
                     <div className="empty-grid">
                       <Search size={30} />
                       <h3>
-                        {summary.scan.running ? 'Finding your assets…' : 'No assets here yet'}
+                        {summary.scan.running
+                          ? 'Finding your assets…'
+                          : query.previewOnly
+                            ? 'No previews match these filters'
+                            : summary.total
+                              ? 'No assets match these filters'
+                              : 'No assets here yet'}
                       </h3>
                       <p>
-                        {query.search || query.format || query.comments || query.status
-                          ? 'Try a different search or clear your filters.'
+                        {query.search ||
+                        query.format ||
+                        query.comments ||
+                        query.previewOnly ||
+                        query.status
+                          ? query.previewOnly
+                            ? 'Previews appear here as they finish. Clear your filters to see all assets.'
+                            : 'Try a different search or clear your filters.'
                           : 'This folder has no included model files. Check your exclusions or open another folder.'}
                       </p>
                     </div>
@@ -583,12 +656,11 @@ export function App() {
                             className={`asset-card ${selected?.id === asset.id ? 'selected' : ''}`}
                             aria-pressed={selected?.id === asset.id}
                             onClick={() => select(asset)}
-                            onKeyDown={(e) => void navigate(e, asset, i)}
+                            onKeyDown={(e) => void navigate(e, i)}
                             aria-label={`Inspect ${asset.name}`}
                             aria-description={`${statusNames[asset.status]}, ${asset.format.toUpperCase()}, ${asset.relativePath}, ${asset.commentCount} comments`}
                           >
                             <div className="asset-image">
-                              <SelectionFrame />
                               {asset.thumbnail ? (
                                 <img
                                   src={asset.thumbnail}
@@ -607,7 +679,7 @@ export function App() {
                                     {asset.preview === 'failed'
                                       ? 'Preview failed'
                                       : asset.preview === 'unsupported'
-                                        ? 'No preview adapter'
+                                        ? 'Preview unavailable'
                                         : asset.preview === 'generating'
                                           ? 'Generating preview'
                                           : 'Preview queued'}
@@ -655,7 +727,9 @@ export function App() {
                   <Inspector
                     key={selected.id}
                     asset={selected}
-                    close={() => setSelected(null)}
+                    close={closeInspector}
+                    expanded={fullPreview}
+                    toggleExpanded={() => setFullPreview((value) => !value)}
                     refresh={refresh}
                     version={version}
                   />

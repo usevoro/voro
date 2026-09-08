@@ -164,11 +164,11 @@ The base UI is 13px. Controls and notes commonly use 12px, supporting text 11px,
 
 ## Layout
 
-A full-height desktop shell places a 46px titlebar above a fixed rail and flexible main area. The rail is 224px, the toolbar 55px high, and the adjacent inspector 402px wide with a 48% maximum. Gallery and inspector scroll independently. The virtual contact sheet uses 260px rows, 240px cards, and a column count derived from available gallery width with a 224px divisor. Thumbnails are 182px high.
+A full-height desktop shell places a 46px titlebar above a fixed rail and flexible main area. The rail is 224px, the toolbar 55px high, and the compact inspector 402px wide with a 48% maximum. Clicking a card opens a full workspace preview with a 350px review column; Compact view restores the adjacent gallery. The preview stage fills the remaining width and height, and review notes scroll independently. The virtual contact sheet uses 260px rows, 240px cards, and a column count derived from available gallery width with a 224px divisor. Thumbnails are 182px high.
 
 The welcome composition uses two columns (1.05fr / 1fr), a 48px gap, and a 1160px maximum width. Main workspace gutters are typically 28px. The canonical spacing scale is 4, 8, 12, 16, 24, and 32px; observed layout-specific values remain local.
 
-At widths up to 1200px, the rail becomes 195px, inspector 366px, main gutters 22px, and welcome gap 30px. At heights up to 780px, vertical spacing compresses and the viewer becomes 200px high. The native window minimum is 1080 × 700. The reviewed desktop sizes are 1480 × 960 and 1080 × 700; no mobile product layout is shipped.
+At widths up to 1200px, the rail becomes 195px, compact inspector 366px and full-view review column 310px, main gutters 22px, and welcome gap 30px. At heights up to 780px, vertical spacing compresses and the viewer becomes 200px high. The native window minimum is 1080 × 700. The reviewed desktop sizes are 1480 × 960 and 1080 × 700; no mobile product layout is shipped.
 
 Token mapping: `spacing.<n>` maps to `--voro-space-<n>`; the display/wordmark family maps to `--voro-font-display`, and body/label family to `--voro-font-body`.
 
@@ -182,7 +182,7 @@ State-color transitions use `--voro-motion-fast` (160ms). The inspector enters o
 
 ## Shapes
 
-Controls use the shared radius (10px); dialogs use the panel radius (18px). Asset cards use 12px corners; their image stages and status badges use 9px. The painted welcome frame has an asymmetric silhouette (24px 70px 24px 24px). The sprout mascot uses the exact original paths from `brand/identity.json`; the rounded SVG selection outline uses a non-scaling 2px stroke.
+Controls use the shared radius (10px); dialogs use the panel radius (18px). Asset cards use 12px corners; their image stages and status badges use 9px. The painted welcome frame has an asymmetric silhouette (24px 70px 24px 24px). The sprout mascot uses the exact original paths from `brand/identity.json`; asset selection uses an inset 2px CSS border that inherits the stage’s 9px radius, so its corners stay consistent at every tile width.
 
 `rounded.control` maps to `--voro-radius` and `rounded.panel` to `--voro-radius-panel`. Asset and badge radii are local CSS values. Keep the mascot's eye-width clear space. Brand exports specify horizontal wordmarks at 260px minimum, compact wordmarks at 180px, and mascot artwork at 24px; the native icon also has a dedicated 16px export.
 

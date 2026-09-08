@@ -14,15 +14,22 @@ export function Viewer({ asset }: { asset: Asset }) {
     [clips, setClips] = useState<string[]>([]),
     [stats, setStats] = useState({ vertices: 0, triangles: 0 }),
     [attempt, setAttempt] = useState(0);
+  const previewSupported =
+    ['glb', 'gltf'].includes(asset.format) && asset.size <= 256 * 1024 * 1024;
   useEffect(() => {
     setState('loading');
     setWire(false);
     setDark(false);
     setPlaying(false);
     setClips([]);
-    if (!['glb', 'gltf'].includes(asset.format) || asset.size > 256 * 1024 * 1024) {
+    if (!previewSupported) {
       setState('failed');
-      setError(asset.previewError || 'Asset exceeds the 256 MB preview limit.');
+      setError(
+        asset.previewError ||
+          (!['glb', 'gltf'].includes(asset.format)
+            ? 'This format has no 3D preview yet. You can still review it or reveal the source file.'
+            : 'Asset exceeds the 256 MB preview limit.'),
+      );
       return;
     }
     let instance: PreviewScene,
@@ -48,7 +55,10 @@ export function Viewer({ asset }: { asset: Asset }) {
       instance = new PreviewScene(canvas.current!);
       scene.current = instance;
       observer = new ResizeObserver(([entry]) => {
-        if (!instance.disposed) instance.resize(entry.contentRect.width, entry.contentRect.height);
+        if (!instance.disposed) {
+          instance.resize(entry.contentRect.width, entry.contentRect.height);
+          instance.render(0);
+        }
       });
       observer.observe(host.current!);
       instance.resize(host.current!.clientWidth, host.current!.clientHeight);
@@ -110,9 +120,11 @@ export function Viewer({ asset }: { asset: Asset }) {
             <Box size={34} />
             <strong>Preview unavailable</strong>
             <p>{error}</p>
-            <button onClick={() => setAttempt((n) => n + 1)}>
-              <RotateCcw size={14} /> Retry viewer
-            </button>
+            {previewSupported && (
+              <button onClick={() => setAttempt((n) => n + 1)}>
+                <RotateCcw size={14} /> Retry viewer
+              </button>
+            )}
           </div>
         )}
         {state === 'ready' && (
@@ -122,6 +134,7 @@ export function Viewer({ asset }: { asset: Asset }) {
       <div className="viewer-toolbar">
         <div>
           <button
+            disabled={state !== 'ready'}
             title="Frame model"
             aria-label="Frame model"
             onClick={() => scene.current?.frame()}
@@ -129,6 +142,7 @@ export function Viewer({ asset }: { asset: Asset }) {
             <Focus size={17} />
           </button>
           <button
+            disabled={state !== 'ready'}
             title="Toggle wireframe"
             aria-label="Toggle wireframe"
             aria-pressed={wire}
@@ -140,6 +154,7 @@ export function Viewer({ asset }: { asset: Asset }) {
             <Grid2X2 size={16} />
           </button>
           <button
+            disabled={state !== 'ready'}
             aria-label="Toggle background"
             title="Toggle background"
             onClick={() => {

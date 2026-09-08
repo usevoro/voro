@@ -38,8 +38,10 @@ Open that folder in the app. The sample includes furniture, objects, animation, 
 
 ## Workflow
 
-- Search filenames or relative paths; filter by folder, status, format, and comments; sort by name, path, or modification time.
-- Select a card to inspect it. Drag to orbit, right-drag to pan, scroll to zoom. Frame, wireframe, background, and animation controls are below the viewer.
+- Search filenames or relative paths; filter by folder, status, format, comments, and preview availability; sort by name, path, or modification time.
+- Select a card to open a large preview with notes beside it. Use **Compact view** to browse the gallery alongside the inspector, or **Back to assets** to return. Drag to orbit, right-drag to pan, scroll to zoom. Frame, wireframe, background, and animation controls are below the viewer.
+- **Filters → Preview available** hides queued, failed, and unsupported previews. Assets appear as their previews finish.
+- **Export reviews** saves all cataloged project reviews to a portable JSON file, independent of gallery filters. Device-only drafts are excluded; unreadable and orphaned notes are reported in the export. See the [review format and JSON Schemas](docs/REVIEW_FORMAT.md).
 - Add/edit/delete comments and choose Unreviewed, Needs changes, or Approved. Saves are explicit and report their result.
 - Drafts stay on this device across selection changes and restarts. External review changes preserve drafts and ask you to load the latest review before saving.
 - Project settings control exclusions, explicitly authorized external dependency folders, and the thumbnail cache. A rescan button recovers missed watcher events.
