@@ -68,6 +68,21 @@ textarea {
   padding: 9px 11px;
   caret-color: var(--voro-plum);
 }
+/* Reserve a shared arrow gutter while retaining the native select menu. */
+select {
+  appearance: none;
+  padding-right: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236b626c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+@media (forced-colors: active) {
+  select {
+    appearance: auto;
+    background-image: none;
+  }
+}
 input[type='checkbox'] {
   accent-color: var(--voro-plum);
 }
@@ -503,8 +518,12 @@ small {
 .filter-tray select,
 .filter-tray button {
   font-size: 11px;
-  padding: 5px 8px;
+  padding-block: 5px;
+  padding-left: 8px;
   min-height: 30px;
+}
+.filter-tray button {
+  padding-right: 8px;
 }
 .content {
   display: flex;
@@ -886,7 +905,8 @@ small {
 .animation select {
   flex: 1;
   min-width: 0;
-  padding: 6px;
+  padding-block: 6px;
+  padding-left: 6px;
   font-size: 11px;
 }
 .animation small {
@@ -947,19 +967,19 @@ small {
 .status-select {
   width: 100%;
   font-size: 12px;
-  background: var(--voro-ground);
+  background-color: var(--voro-ground);
   font-weight: 550;
-  padding: 10px 11px;
+  padding-block: 10px;
   color: var(--voro-ink);
 }
 .status-select.needs_changes {
   color: var(--voro-warning);
-  background: var(--voro-warning-bg);
+  background-color: var(--voro-warning-bg);
   border-color: #d7aa8b;
 }
 .status-select.approved {
   color: var(--voro-success);
-  background: var(--voro-success-bg);
+  background-color: var(--voro-success-bg);
   border-color: #9ec4af;
 }
 .comments-heading {
@@ -1492,9 +1512,6 @@ small {
   }
   .review-progress {
     width: 140px;
-  }
-  .filters select {
-    width: 137px;
   }
   .workspace-mode {
     display: none;
