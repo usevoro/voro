@@ -1,6 +1,6 @@
 # Download VORO early access
 
-[VORO 0.1.0-alpha.1](https://github.com/usevoro/voro/releases/tag/v0.1.0-alpha.1) is the first early-access archive release. These are portable ZIP packages, not automatic installers. There is no auto-updater. Use a copy of your project for early testing and keep saved review files backed up.
+**Release publication is on hold while publisher signing is configured.** Local 0.1.0-alpha.1 candidates exist, but no GitHub release has been published yet. The planned early-access packages are described below. These are portable ZIP packages, not automatic installers. There is no auto-updater. Use a copy of your project for early testing and keep saved review files backed up.
 
 | Build               | Runtime baseline             | Validation and signing                                                                          |
 | ------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -48,6 +48,6 @@ npm run release:build
 npm run release:build -- windows-x64
 ```
 
-The script writes archives, `SHA256SUMS.txt`, and `build-manifest.json` to `out/releases/<version>/`. It builds four targets by default; macOS packaging requires a Mac for ad-hoc signing. The ZIP maker and Windows resource editor support cross-packaging without Wine. Packaging is not native runtime validation. The command never publishes or enables Actions.
+The script writes archives, `SHA256SUMS.txt`, and `build-manifest.json` to `out/releases/<version>/development/`. For Developer ID signed and notarized Mac builds, use `npm run release:mac`; see [publisher signing](SIGNING.md). It builds four targets by default; macOS packaging requires a Mac for ad-hoc signing. The ZIP maker and Windows resource editor support cross-packaging without Wine. Packaging is not native runtime validation. The command never publishes or enables Actions.
 
 Before publishing, merge the source PR, rebuild from clean `main`, run native checks where available, inspect archives and licenses, verify checksums, and publish a GitHub prerelease at that exact source commit. Do not publish a manifest with `sourceDirty: true`. Preserve an existing release’s artifacts; use a new version for replacements. Update the website manifest only after the release assets are publicly accessible.
