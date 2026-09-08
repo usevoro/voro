@@ -23,7 +23,9 @@ On September 8, 2026, the macOS arm64 build passed:
 - Visual inspection at 1480 × 960 and 1080 × 700 with no horizontal overflow or renderer errors.
 - Runtime dependency audit with zero reported vulnerabilities (initial build).
 
-Build outputs are in `out/VORO-darwin-arm64/` and `out/make/zip/darwin/arm64/`. The GitHub Actions workflow reproduces the macOS checks; it has been configured but has not been run remotely from this local folder.
+Build outputs are in `out/VORO-darwin-arm64/` and `out/make/zip/darwin/arm64/`. GitHub Actions is disabled as of September 9, 2026, at the maintainer’s request to avoid hosted CI usage. Validation is local; no CI checks are required. Earlier remote runs exposed a watcher/rescan race, covered by the added regression test.
+
+On September 9, 2026, local validation also passed type checking, formatting, all 11 integration tests (including the watcher/rescan regression), all four Electron suites in both development and the packaged app, and macOS arm64 packaging. The packaged archive contains the MIT license and generated third-party notices.
 
 ## Format validation matrix
 
