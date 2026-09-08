@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-08T21:27:22.000Z",
+  "repository": null,
+  "targets": [
+    {
+      "id": "mac-arm64",
+      "platform": "macOS",
+      "architecture": "Apple silicon",
+      "status": "unavailable"
+    },
+    {
+      "id": "mac-x64",
+      "platform": "macOS",
+      "architecture": "Intel",
+      "status": "planned"
+    },
+    {
+      "id": "windows-x64",
+      "platform": "Windows",
+      "architecture": "64-bit (x64)",
+      "status": "planned"
+    },
+    {
+      "id": "linux-x64",
+      "platform": "Linux",
+      "architecture": "64-bit (x64)",
+      "status": "planned"
+    }
+  ],
+  "stars": null
+}

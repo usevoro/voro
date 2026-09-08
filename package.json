@@ -22,7 +22,12 @@
     "format:check": "prettier --check .",
     "brand:build": "node scripts/brand.mjs",
     "brand:capture": "npm run build && tsx scripts/capture-brand.ts",
-    "schemas:build": "tsx scripts/review-schemas.ts"
+    "schemas:build": "tsx scripts/review-schemas.ts",
+    "site:build": "npm --prefix site run build",
+    "site:dev": "npm --prefix site run dev",
+    "site:test": "npm --prefix site test",
+    "site:refresh": "npm --prefix site run refresh",
+    "site:capture": "npm run build && tsx scripts/capture-site.ts"
   },
   "engines": {
     "node": ">=22.13.0"

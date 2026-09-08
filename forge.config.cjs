@@ -12,6 +12,7 @@ module.exports = {
     // Fail early instead of accepting Forge's silent ZIP-extraction exit on Node 26.
     appBundleId: 'local.asset-reviewer.app',
     ignore: [
+      /^\/site($|\/)/,
       /^\/brand($|\/)/,
       /^\/\.impeccable($|\/)/,
       /^\/(PRODUCT|DESIGN)\.md$/,
