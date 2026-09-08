@@ -18,7 +18,7 @@ On September 8, 2026, the macOS arm64 build passed:
 
 - TypeScript type checking and repository formatting checks.
 - Ten filesystem/catalog integration tests, including preview filtering/pagination and non-mutating review exports with malformed/orphan sidecars.
-- Three end-to-end suites in both development and the packaged `.app`: the full/compact preview, filtering, export, and review/restart workflow; offline Draco/Meshopt/KTX2 rendering, and resource grants/thumbnail crash recovery/comment deletion.
+- Four end-to-end suites in both development and the packaged `.app`: the full/compact preview, filtering, export, and review/restart workflow; offline Draco/Meshopt/KTX2 rendering, and resource grants/thumbnail crash recovery/comment deletion; and folder disclosure, filtering, keyboard activation, and refresh persistence.
 - Forge packaging and ZIP creation using Node 22.23.2 and Electron 44.2.0.
 - Visual inspection at 1480 × 960 and 1080 × 700 with no horizontal overflow or renderer errors.
 - Runtime dependency audit with zero reported vulnerabilities (initial build).

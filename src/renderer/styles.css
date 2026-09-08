@@ -270,7 +270,8 @@ small {
   scrollbar-color: #a28caa transparent;
 }
 .folder-item {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   min-height: 33px;
   justify-content: flex-start;
   gap: 8px;
@@ -295,9 +296,36 @@ small {
   color: #fff;
   background: #fffdfa12;
 }
-.folder-item.chosen {
+.folder-row.chosen {
   color: #fff;
   background: #fffdfa19;
+}
+.folder-row {
+  color: var(--voro-rail-muted);
+  display: flex;
+  align-items: center;
+  border-radius: var(--voro-radius);
+}
+.folder-row.chosen .folder-item {
+  color: inherit;
+}
+.folder-toggle,
+.folder-toggle-spacer {
+  flex: 0 0 24px;
+  width: 24px;
+}
+.folder-toggle {
+  min-height: 33px;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  background: transparent;
+}
+.folder-toggle:hover {
+  background: #fffdfa12;
+}
+.folder-toggle[aria-expanded='true'] svg {
+  transform: rotate(90deg);
 }
 .folder-item.nested {
   font-size: 11px;

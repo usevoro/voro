@@ -344,3 +344,74 @@ test(
     }
   },
 );
+
+test(
+  'Electron: folder disclosure controls preserve filters and nested state across refreshes',
+  { timeout: 30000 },
+  async () => {
+    const base = await mkdtemp(path.join(tmpdir(), 'voro-folders-'));
+    const root = path.join(base, 'project');
+    const data = path.join(base, 'data');
+    await mkdir(data);
+    for (const file of ['Art/Props/Crate.obj', 'Art/Characters/Hero.obj', 'Artists/Marker.obj']) {
+      await mkdir(path.dirname(path.join(root, file)), { recursive: true });
+      await writeFile(path.join(root, file), 'o Fixture\nv 0 0 0\n');
+    }
+    const app = await launch(data);
+    try {
+      const page = await app.firstWindow();
+      await picker(app, root);
+      await page.getByRole('button', { name: /Open a project folder/ }).click();
+      await expect(page.locator('.collection-count')).toHaveText('3 files');
+      const art = page.getByRole('button', { name: 'Show assets in Art', exact: true });
+      const props = page.getByRole('button', { name: 'Show assets in Art/Props', exact: true });
+      const artists = page.getByRole('button', { name: 'Show assets in Artists', exact: true });
+      const branch = page.getByRole('button', { name: /^(Collapse|Expand) folder Art$/ });
+      const projectToggle = page.getByRole('button', {
+        name: /^(Collapse|Expand) folders in project$/,
+      });
+      await expect(projectToggle).toHaveAttribute('aria-expanded', 'true');
+      await art.click();
+      await expect(page.locator('.collection-count')).toHaveText('2 files');
+      await branch.click();
+      await expect(branch).toHaveAttribute('aria-expanded', 'false');
+      await expect(props).toBeHidden();
+      await expect(artists).toBeVisible();
+      await expect(art).toHaveAttribute('aria-current', 'location');
+      await expect(page.locator('.collection-count')).toHaveText('2 files');
+      await page.getByRole('button', { name: 'Rescan project' }).click();
+      await expect
+        .poll(() => page.evaluate(async () => (await window.reviewer.summary()).scan.running))
+        .toBe(false);
+      await expect(props).toBeHidden();
+      await projectToggle.click();
+      await expect(projectToggle).toHaveAttribute('aria-expanded', 'false');
+      await expect(art).toBeHidden();
+      await expect(page.locator('.collection-count')).toHaveText('2 files');
+      // Disclosure remains a native button, so keyboard activation works too.
+      await projectToggle.press('Space');
+      await expect(art).toBeVisible();
+      await expect(props).toBeHidden();
+      await branch.press('Enter');
+      await expect(props).toBeVisible();
+      await props.click();
+      await expect(page.locator('.collection-count')).toHaveText('1 files');
+      await expect(page.getByRole('button', { name: 'Inspect Crate.obj' })).toBeVisible();
+      await expect(
+        page.getByRole('button', { name: /^(Collapse|Expand) folder Art\/Props$/ }),
+      ).toHaveCount(0);
+      await mkdir('test-results', { recursive: true });
+      await page.screenshot({ path: 'test-results/folders-expanded.png' });
+      await app.evaluate(({ BrowserWindow }) =>
+        BrowserWindow.getAllWindows()
+          .find((w) => w.webContents.getURL().endsWith('/index.html'))!
+          .setSize(1080, 700),
+      );
+      await projectToggle.click();
+      await page.screenshot({ path: 'test-results/folders-collapsed.png' });
+    } finally {
+      await app.close();
+      await rm(base, { recursive: true, force: true });
+    }
+  },
+);

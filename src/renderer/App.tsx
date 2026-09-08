@@ -30,6 +30,7 @@ import type {
   Summary,
   ReviewStatus,
 } from '../shared/contracts';
+import { FolderTree } from './FolderTree';
 import { Inspector, statusNames } from './Inspector';
 import { BrandLockup, BrandStudy } from './Brand';
 const emptySummary: Summary = {
@@ -300,27 +301,13 @@ export function App() {
                   <span className="nav-label">FOLDERS</span>
                   <Folder size={12} />
                 </div>
-                <button
-                  className={`folder-item ${query.folder === undefined ? 'chosen' : ''}`}
-                  onClick={() => patchQuery({ folder: undefined })}
-                >
-                  <ChevronRight size={12} />
-                  <FolderOpen size={15} />
-                  <span>{project.name}</span>
-                </button>
-                {summary.folders.map((folder) => (
-                  <button
-                    key={folder.path}
-                    title={folder.path || '(project root)'}
-                    className={`folder-item nested ${query.folder === folder.path ? 'chosen' : ''}`}
-                    style={{ paddingLeft: 20 + Math.min(folder.path.split('/').length, 5) * 10 }}
-                    onClick={() => patchQuery({ folder: folder.path })}
-                  >
-                    <Folder size={13} />
-                    <span>{folder.path.split('/').pop() || '(root)'}</span>
-                    <small>{folder.count}</small>
-                  </button>
-                ))}
+                <FolderTree
+                  key={project.id}
+                  project={project}
+                  folders={summary.folders}
+                  selected={query.folder}
+                  onSelect={(folder) => patchQuery({ folder })}
+                />
               </div>
             </>
           ) : (

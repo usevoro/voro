@@ -38,6 +38,7 @@ Open that folder in the app. The sample includes furniture, objects, animation, 
 
 ## Workflow
 
+- Use folder carets to expand or collapse the project and nested branches; click folder names to filter assets. Collapsing keeps the active filter and nested disclosure state during scans.
 - Search filenames or relative paths; filter by folder, status, format, comments, and preview availability; sort by name, path, or modification time.
 - Select a card to open a large preview with notes beside it. Use **Compact view** to browse the gallery alongside the inspector, or **Back to assets** to return. Drag to orbit, right-drag to pan, scroll to zoom. Frame, wireframe, background, and animation controls are below the viewer.
 - **Filters → Preview available** hides queued, failed, and unsupported previews. Assets appear as their previews finish.
