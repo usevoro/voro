@@ -82,6 +82,7 @@ export class Catalog {
       exclusions: prior ? JSON.parse(prior.exclusions) : DEFAULT_EXCLUSIONS,
       externalRoots: prior ? JSON.parse(prior.externalRoots) : [],
     };
+    this.orphans = [];
     this.db
       .prepare('INSERT OR REPLACE INTO projects VALUES(?,?,?,?,?,?)')
       .run(
@@ -150,7 +151,7 @@ export class Catalog {
     if (!this.project || gen !== this.generation) return;
     const project = this.project;
     this.scan = { ...emptyScan(), running: true };
-    this.orphans = [];
+    const orphans: string[] = [];
     this.identityPaths.clear();
     this.notify();
     const seen = new Set<string>();
@@ -179,7 +180,7 @@ export class Catalog {
           }
           if (/^\..+\.notes\.json$/.test(entry.name)) {
             const source = path.join(project.root, folder, entry.name.slice(1, -11));
-            if (!(await stat(source).catch(() => null))) this.orphans.push(rel);
+            if (!(await stat(source).catch(() => null))) orphans.push(rel);
           }
           if (!entry.isFile() || !recognized.has(path.extname(entry.name).slice(1).toLowerCase()))
             continue;
@@ -221,6 +222,7 @@ export class Catalog {
         )
           this.remove(row.id);
       }
+    this.orphans = orphans;
     this.scan.running = false;
     this.notify();
   }
@@ -381,6 +383,11 @@ export class Catalog {
   }
   async reconcileChanges() {
     if (!this.project) return;
+    const project = this.project;
+    // Watcher events must not cancel a full scan halfway through reconciliation.
+    // Keep collecting events while it runs, then apply them to its completed catalog.
+    await this.scanPromise;
+    if (this.project !== project) return;
     const changes = [...this.changed];
     this.changed.clear();
     if (changes.includes('*')) {
