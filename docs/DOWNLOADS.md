@@ -1,41 +1,35 @@
 # Download VORO early access
 
-**Release publication is on hold while publisher signing is configured.** Local 0.1.0-alpha.1 candidates exist, but no GitHub release has been published yet. The planned early-access packages are described below. These are portable ZIP packages, not automatic installers. There is no auto-updater. Use a copy of your project for early testing and keep saved review files backed up.
+[Version 0.1.0-alpha.1](https://github.com/usevoro/voro/releases/tag/v0.1.0-alpha.1) is available for Mac. Both builds are signed with Developer ID, notarized by Apple, and include stapled notarization tickets. The publisher is **Tapija d.o.o.**
 
-| Build               | Runtime baseline             | Validation and signing                                                                          |
-| ------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
-| macOS Apple Silicon | macOS 13+                    | Packaged-app smoke suites on Apple Silicon; ad-hoc signed, not Developer ID signed or notarized |
-| macOS Intel         | macOS 13+                    | Cross-built and archive-inspected; native Intel testing pending; ad-hoc signed, not notarized   |
-| Windows x64         | Windows 10+                  | Cross-built and archive-inspected; native Windows testing pending; unsigned                     |
-| Linux x64           | Current 64-bit desktop Linux | Cross-built and archive-inspected; native desktop testing pending; unsigned                     |
+| Download                                                                                                               | Requirements               | Validation                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------- |
+| [Apple silicon ZIP](https://github.com/usevoro/voro/releases/download/v0.1.0-alpha.1/VORO-0.1.0-alpha.1-mac-arm64.zip) | macOS 13+, Apple silicon   | All four packaged-app workflow tests passed on the final archive.                                       |
+| [Intel ZIP](https://github.com/usevoro/voro/releases/download/v0.1.0-alpha.1/VORO-0.1.0-alpha.1-mac-x64.zip)           | macOS 13+, Intel processor | Cross-built; archive, signature, ticket, and Gatekeeper verified. Native Intel runtime testing pending. |
 
-The OS baselines follow [Electron 44.2.0](https://github.com/electron/electron/blob/v44.2.0/README.md#platform-support), not a claim that VORO was tested on every listed OS. In particular, Linux needs compatible desktop libraries, a working Chromium sandbox, and graphics support. See release notes for the exact evidence and limitations. Windows ARM64 and Linux ARM64 packages are not included in this first release.
+The macOS baseline follows [Electron 44.2.0](https://github.com/electron/electron/blob/v44.2.0/README.md#platform-support); it is not a claim of testing every supported OS version. Intel is an experimental cross-build. Windows and Linux candidates exist locally but are **not published**; Windows publisher signing still needs a separate certificate/service, and native Windows/Linux runtime validation is outstanding.
 
-## Install and open
+## Install and update
 
-- **macOS:** extract the matching ZIP, move `VORO.app` into Applications, and open it. Because this build is not notarized, macOS may block the first launch. If you trust the downloaded release, use the per-app **Open Anyway** option in System Settings → Privacy & Security. Do not disable Gatekeeper globally. Do not try to run the Intel build on Apple Silicon without Rosetta.
-- **Windows:** extract the entire ZIP into a folder, then run `VORO.exe` inside it. Keep the executable beside all its bundled files. SmartScreen may warn because the build has no publisher signature. Native Windows behavior is still experimental.
-- **Linux:** extract the ZIP, open the extracted folder in a terminal, and run `./VORO`. Preserve executable permissions. If the system reports a missing shared library or unavailable Chromium sandbox, use a supported desktop environment and report the exact error. Do not run the app as root or disable its sandbox as a workaround.
+1. Download the ZIP matching your Mac's processor and verify its checksum below.
+2. Extract the ZIP and move `VORO.app` to Applications.
+3. Open VORO. macOS may show its normal first-open confirmation for a downloaded application; no Gatekeeper bypass is part of the installation.
 
-To update, quit VORO and replace the application folder with a newer release. Project sidecars and application data are separate from the executable; do not delete them during updates.
+These are portable ZIP packages, not automatic installers. There is no auto-updater. To update, quit VORO and replace the app with the newer version. Do not delete project sidecars or application data. Use copies of important projects during early access and keep saved reviews backed up.
 
 ## Verify the download
 
-Download `SHA256SUMS.txt` from the same release. Compare the matching checksum before opening an archive:
+Download [SHA256SUMS.txt](https://github.com/usevoro/voro/releases/download/v0.1.0-alpha.1/SHA256SUMS.txt) from the same release. Compare the matching checksum before opening the archive:
 
 ```sh
-# macOS
 shasum -a 256 VORO-0.1.0-alpha.1-mac-arm64.zip
-# Linux
-sha256sum VORO-0.1.0-alpha.1-linux-x64.zip
+# For Intel:
+shasum -a 256 VORO-0.1.0-alpha.1-mac-x64.zip
 ```
 
-```powershell
-# Windows PowerShell
-Get-FileHash .\VORO-0.1.0-alpha.1-windows-x64.zip -Algorithm SHA256
-```
+Checksums detect corrupted or changed downloads; publisher verification comes from the app's Developer ID signature and notarization. [build-manifest.json](https://github.com/usevoro/voro/releases/download/v0.1.0-alpha.1/build-manifest.json) records the exact source commit, Electron version, archive sizes, signing status, and hashes. GitHub also provides SHA-256 asset digests.
 
-Checksums detect corrupted or changed downloads; they are not publisher signatures. `build-manifest.json` records source commit, Electron version, archive sizes, and hashes. GitHub also displays SHA-256 asset digests.
+Both final archives passed strict signature, stapled-ticket, and Gatekeeper checks. Apple accepted both submissions with no reported issues. The release tag identifies the code used for the binaries; later documentation changes on main do not change those artifacts.
 
 ## Build without hosted CI
 
