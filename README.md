@@ -22,7 +22,7 @@ Screenshots show the real app with synthetic sample assets and illustrative revi
 
 ## Try it
 
-VORO’s first early-access builds are being prepared for macOS, Windows, and Linux. **Public downloads are on hold while publisher signing is set up.** You can run from source now; [download and testing notes](docs/DOWNLOADS.md) describe the planned packages.
+VORO’s first [Mac early-access release](https://github.com/usevoro/voro/releases/tag/v0.1.0-alpha.1) is available for Apple silicon and Intel, signed with Developer ID and notarized by Apple. Requires macOS 13+. Apple silicon passed the packaged-app workflow tests; native Intel testing is still pending. Windows and Linux downloads are not published yet. See [downloads and installation](docs/DOWNLOADS.md).
 
 To run from source, use **Node.js 22.13+ in the 22.x line** (the version selected by `.nvmrc`):
 
