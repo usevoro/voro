@@ -31,7 +31,7 @@ If Keychain requests access for `codesign`, approve access to this dedicated sig
 
 ## Windows: separate certificate or service required
 
-Apple membership does not sign Windows executables. A publicly trusted Windows code-signing certificate/service and its identity verification are separate. No provider has been purchased or provisioned for VORO. Windows archives remain unpublished while this is unresolved.
+Apple membership does not sign Windows executables. A publicly trusted Windows code-signing certificate/service and its identity verification are separate. No provider has been purchased or provisioned for VORO. The owner has authorized an unsigned Windows x64 experimental archive in the early-access release. It is explicitly labeled unsigned; publisher signing remains unprovisioned.
 
 The prepared certificate-store path supports a certificate backed by an installed key or provider on a **Windows build host**. Configure `VORO_WINDOWS_CERT_SHA1` with its thumbprint and run the release builder with `--signed windows-x64`. Forge uses SHA-256 Authenticode signing and a timestamp server; failures stop packaging, and the final executable must pass Windows signature validation. This path cannot run on the current Mac and has only configuration-level tests until a Windows signing host is supplied.
 
